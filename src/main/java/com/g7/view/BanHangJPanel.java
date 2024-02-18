@@ -427,7 +427,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
                     document.add(new Paragraph("Tong tien:              " + TongTien1, contentFont));
-                    document.add(new Paragraph("Khuyến mãi:      " + mucGiam, contentFont));
+                    document.add(new Paragraph("khuyen mai:           " + mucGiam, contentFont));
                     document.add(new Paragraph("Thanh tien:            " + thanhToan + "   VND", contentFont));
 
                     if (hd.getHinhThucThanhToan() == 1) {
