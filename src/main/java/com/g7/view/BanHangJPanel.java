@@ -400,16 +400,16 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     Font contentFont = new Font(Font.FontFamily.TIMES_ROMAN, 12);
 
                     // Add the invoice content to the PDF document
-                    document.add(new Paragraph("SHOP nhu do y", titleFont));
+                    document.add(new Paragraph("Shop 7Unisex", titleFont));
                     document.add(new Paragraph("Hoa Don Thanh Toan", titleFont));
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
                     document.add(new Paragraph("Ngay thanh toan:    " + hd.getNgayThanhToan(), contentFont));
                     document.add(new Paragraph("Ten khach hang:    " + tenKH, contentFont));
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
-
+                    document.add(new Paragraph("", contentFont));
                     float[] columnWidths = {3f, 1.5f, 1.5f};
                     PdfPTable table = new PdfPTable(columnWidths);
-                    table.setWidthPercentage(100);
+                    table.setWidthPercentage(60);
                     table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
                     table.addCell(new PdfPCell(new Phrase("Ten san pham", contentFont)));
@@ -422,6 +422,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                         table.addCell(new PdfPCell(new Phrase(String.valueOf(x.getDongia()), contentFont)));
                     }
                     document.add(table);
+                    
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
                     document.add(new Paragraph("Tong tien:             " + TongTien1, contentFont));
                     document.add(new Paragraph("Tien duoc giam:    " + mucGiam, contentFont));
