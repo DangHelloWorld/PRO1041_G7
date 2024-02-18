@@ -8,6 +8,7 @@ import com.g7.entity.KhuyenMai;
 import com.g7.repository.impl.KhuyenMaiRepository;
 import com.g7.utils.MsgBox;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,10 +20,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
-    DefaultTableModel model;
+    DefaultTableModel model = new DefaultTableModel();
     KhuyenMai km = new KhuyenMai();
     KhuyenMaiRepository kmr = new KhuyenMaiRepository();
     DecimalFormat fomat = new DecimalFormat("###,###,###");
+    SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
 
     private int ht = 1;
     private int size = 100;
@@ -32,7 +34,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
      */
     public KhuyenMaiJPanel() {
         initComponents();
-        init();
+        findWithPaginationKH(0, size);
+        updatePageInfo();
     }
 
     /**
@@ -99,6 +102,12 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblKhuyenMai);
 
         jLabel11.setText("Tìm kiếm");
+
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtSearchMouseReleased(evt);
+            }
+        });
 
         btnTim.setText("Tìm");
 
@@ -455,6 +464,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         this.delete();
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void txtSearchMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFirst;
@@ -496,11 +509,8 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenKM;
     // End of variables declaration//GEN-END:variables
-    void init() {
-        this.LoadData();
-        updatePageInfo();
-    }
 
+            
     void LoadData() {
         List<KhuyenMai> list = kmr.selectAll();
         model = (DefaultTableModel) tblKhuyenMai.getModel();
@@ -511,7 +521,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
             });
         }
-
+ 
     }
 
     void ShowData(int index) {
@@ -592,6 +602,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         }
     }
+   
 
     void update() {
         KhuyenMai km = new KhuyenMai();
@@ -641,18 +652,13 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         for (KhuyenMai x : list) {
-            String kgg = null;
-            if (x.isKieuGiamGia() == true) {
-                kgg = "VND";
-            } else {
-                kgg = "%";
-            }
             model.addRow(new Object[]{
                 x.getIDKhuyenMai(),
                 x.getTenKhuyenMai(),
                 x.KieuKM(x.isKieuGiamGia()),
+                fomat.format(x.getMucGiamGia()),
                 x.getSoLuong(),
-                fomat.format(km.getMucGiamGia()),
+                
                 x.getNgayBatDau(),
                 x.getNgayKetThuc(),
                 x.trangThai(x.getTrangThai()),
@@ -665,19 +671,14 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         List<KhuyenMai> list = kmr.selectWithPaginationNoActive(ht, c);
         model.setRowCount(0);
         model = (DefaultTableModel) tblKhuyenMai.getModel();
-        for (KhuyenMai x : list) {
-            String kgg = null;
-            if (x.isKieuGiamGia() == true) {
-                kgg = "VND";
-            } else {
-                kgg = "%";
-            }
+        for (KhuyenMai x : list) {           
             model.addRow(new Object[]{
                 x.getIDKhuyenMai(),
                 x.getTenKhuyenMai(),
                 x.KieuKM(x.isKieuGiamGia()),
+                fomat.format(x.getMucGiamGia()),
                 x.getSoLuong(),
-                fomat.format(km.getMucGiamGia()),
+                
                 x.getNgayBatDau(),
                 x.getNgayKetThuc(),
                 x.trangThai(x.getTrangThai()),
@@ -696,6 +697,34 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         }
 
         lblPage.setText(ht + " / " + maxPage);
+    }
+//    public void Search(String nbd, String nkt, int ht, int size){
+//        List<KhuyenMai> list = kmr
+//    }
+    public void validate() {
+        try {
+            Date date1 = txtNgayBDTK.getDate();
+            Date date2 = txtNgayKTTK.getDate();
+
+            if (date1 != null && date2 != null) {
+                long differenceInMillis = Math.abs(date1.getTime() - date2.getTime());
+                long differenceInDays = differenceInMillis / (24 * 60 * 60 * 1000);
+
+                if (differenceInDays >= 31) {
+                    JOptionPane.showMessageDialog(this, "Chỉ tìm kiểm trong khoảng 31 ngày");
+                } else {
+                    String nbd = ft.format(txtNgayBDTK.getDate());
+                    String nkt = ft.format(txtNgayKetThuc.getDate());
+//                    Search(nbd, nkt, 0, size);
+                }
+
+            } else {
+                System.out.println("chịu");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
