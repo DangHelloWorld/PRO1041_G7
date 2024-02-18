@@ -339,7 +339,9 @@ public class BanHangJPanel extends javax.swing.JPanel {
         String mucGiam = lblMucGiam.getText();
         String TongTien1 = lblTongTien.getText();
 
-        String tienKhachDua1 = txtTienKhachDua.getText();
+        String tienKhachDua1 = fomat.format(Double.valueOf(txtTienKhachDua.getText()));
+        
+        
         String tienThua = lblTT.getText();
         System.out.println(tienThua);
 
@@ -424,9 +426,9 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     document.add(table);
                     
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
-                    document.add(new Paragraph("Tong tien:             " + TongTien1, contentFont));
-                    document.add(new Paragraph("Tien duoc giam:    " + mucGiam, contentFont));
-                    document.add(new Paragraph("Thanh tien:             " + thanhToan + "   VND", contentFont));
+                    document.add(new Paragraph("Tong tien:              " + TongTien1, contentFont));
+                    document.add(new Paragraph("Khuyến mãi:      " + mucGiam, contentFont));
+                    document.add(new Paragraph("Thanh tien:            " + thanhToan + "   VND", contentFont));
 
                     if (hd.getHinhThucThanhToan() == 1) {
                         document.add(new Paragraph("Tien khach dua:     " + tienKhachDua1 + "   VND", contentFont));
