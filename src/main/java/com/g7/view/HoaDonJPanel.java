@@ -371,10 +371,9 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_tblhoaDonMouseClicked
 
     private void txtMaHoaDonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaHoaDonKeyReleased
-
-        String duLieuDauVao = txtMaHoaDon.getText().trim();
+//
+//        String duLieuDauVao = txtMaHoaDon.getText().trim();
 //        loadDataHd(hdsv.timKiem(duLieuDauVao, 0));
-
 //        DefaultTableModel dtm = (DefaultTableModel) tblhoaDon.getModel();
 //        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(dtm);
 //        tblhoaDon.setRowSorter(obj);

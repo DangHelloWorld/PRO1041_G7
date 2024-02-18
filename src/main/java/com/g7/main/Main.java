@@ -79,6 +79,7 @@ public class Main extends javax.swing.JFrame {
                         case 8:
                             if (JOptionPane.showConfirmDialog(rootPane, "Bạn Muốn Thoát Không?") == 0) {
                                 System.exit(0);
+                                break;
                             }
                         default:
                             new LoginJDialog().setVisible(true);
