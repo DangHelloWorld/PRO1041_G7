@@ -1409,7 +1409,6 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 giamGia = 0;
                 lblMucGiam.setText("0");
             } else if (txtTimGG.getText().matches("\\d+")) {
-                // Nếu chuỗi chỉ chứa số, thực hiện các bước xử lý
                 int kieuGG = BHRepo.selectKieuGG(Integer.parseInt(txtTimGG.getText()));
                 String mucGiam = BHRepo.selectMucGG(Integer.parseInt(txtTimGG.getText()));
                 lblMucGiam.setText(fomat.format(Double.valueOf(mucGiam)));
