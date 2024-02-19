@@ -171,6 +171,38 @@ public class HoaDonRepository {
         return list;
     }
 
+    public ArrayList<HoaDonViewModel> timKiemHoaDon(String tuKhoa) {
+    ArrayList<HoaDonViewModel> ketQuaTimKiem = new ArrayList<>();
+    try {
+        String sql = "SELECT dbo.HoaDon.Id, dbo.HoaDon.MaHD, dbo.HoaDon.NgayTao, dbo.HoaDon.NgayThanhToan, dbo.HoaDon.TongTien, dbo.HoaDon.SoTienDuocGiam, dbo.KhachHang.TenKhachHang, dbo.NhanVien.TenNhanVien, dbo.HoaDon.TrangThai\n"
+                + "FROM     dbo.HoaDon LEFT JOIN\n"
+                + "                  dbo.KhachHang ON dbo.HoaDon.IdKhachHang = dbo.KhachHang.Id LEFT JOIN\n"
+                + "                  dbo.NhanVien ON dbo.HoaDon.IdNhanVien = dbo.NhanVien.Id\n"
+                + "				  WHERE dbo.HoaDon.MaHD LIKE ? AND dbo.HOaDon.TrangThai =3 \n"
+                + "				ORDER BY HoaDon.Id DESC";
+        PreparedStatement ps = con.prepareStatement(sql);
+        String keyword = "%" + tuKhoa + "%";
+        ps.setString(1, keyword);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            HoaDonViewModel entity = new HoaDonViewModel();
+                entity.setIdhd(rs.getInt(1));
+                entity.setMahd(rs.getString(2));
+                entity.setNgayTao(rs.getDate(3));
+                entity.setNgayThanhToan(rs.getDate(4));
+                entity.setTongTien(rs.getDouble(5));
+                entity.setSoTienDuocGiam(rs.getDouble(6));
+                entity.setTenKH(rs.getString(7));
+                entity.setTenNV(rs.getString(8));
+                entity.setTrangThai(rs.getInt(9));
+                ketQuaTimKiem.add(entity);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return ketQuaTimKiem;
+}
+    
     public List<GioHangViewModel> selectWithPaginationGH(int id) {
         String sql = select_Pagination_gh;
 
