@@ -1,7 +1,6 @@
 package com.g7.view;
 
 import com.g7.entity.HoaDon;
-import com.g7.entity.HoaDonChiTiet;
 import com.g7.repository.impl.HoaDonRepository;
 import com.g7.repository.impl.HoaDonCtRepository;
 import com.g7.viewmodel.GioHangViewModel;
@@ -12,9 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 public class HoaDonJPanel extends javax.swing.JPanel {
 
@@ -33,6 +30,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         initComponents();
         FindDataHD(0, size);
     }
+
     public void Search(String nbd, String nkt, int ht, int size) {
         List<HoaDonViewModel> list = hdsv.selectWithPaginationHDS(nbd, nkt, ht, size);
         dtm.setRowCount(0);
@@ -46,6 +44,17 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
     public void FindDataHD(int ht, int size) {
         List<HoaDonViewModel> list = hdsv.selectWithPaginationHDC(ht, size);
+        dtm.setRowCount(0);
+        dtm = (DefaultTableModel) tblhoaDon.getModel();
+        for (HoaDonViewModel x : list) {
+            dtm.addRow(new Object[]{
+                x.getIdhd(), x.getMahd(), x.getNgayTao(), x.getNgayThanhToan(), x.getTongTien(), x.getSoTienDuocGiam(), x.getTenNV(), x.getTenKH(), x.trangThai(x.getTrangThai())
+            });
+        }
+    }
+
+    public void FindDataHDSearch() {
+        List<HoaDonViewModel> list = hdsv.timKiemHoaDon(txtMaHoaDon.getText());
         dtm.setRowCount(0);
         dtm = (DefaultTableModel) tblhoaDon.getModel();
         for (HoaDonViewModel x : list) {
@@ -371,20 +380,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_tblhoaDonMouseClicked
 
     private void txtMaHoaDonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaHoaDonKeyReleased
-//
-//        String duLieuDauVao = txtMaHoaDon.getText().trim();
-//        loadDataHd(hdsv.timKiem(duLieuDauVao, 0));
-//        DefaultTableModel dtm = (DefaultTableModel) tblhoaDon.getModel();
-//        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(dtm);
-//        tblhoaDon.setRowSorter(obj);
-//        
-//        if (!dưLieuDauVao.isEmpty()) {
-//            obj.setRowFilter(RowFilter.regexFilter(dưLieuDauVao, 1));
-//            obj.setRowFilter(RowFilter.regexFilter(dưLieuDauVao, 7));
-//        } else {
-//            tblhoaDon.setRowSorter(obj);
-//            obj.setRowFilter(null);
-//        }
+        FindDataHDSearch();
     }//GEN-LAST:event_txtMaHoaDonKeyReleased
 
     private void btnnhoMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnhoMaxActionPerformed

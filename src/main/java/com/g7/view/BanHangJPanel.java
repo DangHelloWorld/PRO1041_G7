@@ -411,7 +411,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     document.add(new Paragraph("", contentFont));
                     float[] columnWidths = {3f, 1.5f, 1.5f};
                     PdfPTable table = new PdfPTable(columnWidths);
-                    table.setWidthPercentage(60);
+                    table.setWidthPercentage(40);
                     table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
                     table.addCell(new PdfPCell(new Phrase("Ten san pham", contentFont)));
@@ -427,12 +427,12 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
                     document.add(new Paragraph("Tong tien:              " + TongTien1, contentFont));
-                    document.add(new Paragraph("khuyen mai:           " + mucGiam, contentFont));
+                    document.add(new Paragraph("khuyen mai:          " + mucGiam, contentFont));
                     document.add(new Paragraph("Thanh tien:            " + thanhToan + "   VND", contentFont));
 
                     if (hd.getHinhThucThanhToan() == 1) {
                         document.add(new Paragraph("Tien khach dua:     " + tienKhachDua1 + "   VND", contentFont));
-                        document.add(new Paragraph("Tien thua:              " + tienThua + "   VND", contentFont));
+                        document.add(new Paragraph("Tien thua:             " + tienThua + "   VND", contentFont));
                     } else {
                         document.add(new Paragraph("Phuong thuc thanh toan:     Chuyen khoan", contentFont));
                     }
@@ -1328,11 +1328,29 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         huyhoadon();
         FindDataSP(ht, size);
+         txtTienKhachDua.setText("0");
+        lblTT.setText("0");
+        lblThanhToan.setText("0");
+        lblMucGiam.setText("0");
+        lblTongTien.setText("0");
+        lblNgayTao.setText("Date");
+        lblMaHD.setText("HD++");
+        lblTenKH.setText("Khách vãng lai");
+        lblMaKH.setText("KH001");
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         thanhToan();
         FindDataHDC(htHDC, size);
+        txtTienKhachDua.setText("0");
+        lblTT.setText("0");
+        lblThanhToan.setText("0");
+        lblMucGiam.setText("0");
+        lblTongTien.setText("0");
+        lblNgayTao.setText("Date");
+        lblMaHD.setText("HD++");
+        lblTenKH.setText("Khách vãng lai");
+        lblMaKH.setText("KH001");
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnTKKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTKKHActionPerformed
@@ -1391,7 +1409,6 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 giamGia = 0;
                 lblMucGiam.setText("0");
             } else if (txtTimGG.getText().matches("\\d+")) {
-                // Nếu chuỗi chỉ chứa số, thực hiện các bước xử lý
                 int kieuGG = BHRepo.selectKieuGG(Integer.parseInt(txtTimGG.getText()));
                 String mucGiam = BHRepo.selectMucGG(Integer.parseInt(txtTimGG.getText()));
                 lblMucGiam.setText(fomat.format(Double.valueOf(mucGiam)));
