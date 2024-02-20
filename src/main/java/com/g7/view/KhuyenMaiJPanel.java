@@ -108,8 +108,18 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 txtSearchMouseReleased(evt);
             }
         });
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
         btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Start");
 
@@ -468,6 +478,20 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchMouseReleased
 
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+        String keyWord = txtSearch.getText().trim();
+        try {
+            searchTen(keyWord, 0, size);
+        } catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFirst;
@@ -698,9 +722,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         lblPage.setText(ht + " / " + maxPage);
     }
-//    public void Search(String nbd, String nkt, int ht, int size){
-//        List<KhuyenMai> list = kmr
-//    }
+    
     public void validate() {
         try {
             Date date1 = txtNgayBDTK.getDate();
@@ -724,6 +746,25 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public void searchTen(String ten, int ht, int c){
+        List<KhuyenMai> list = kmr.SearchTheoTen(ten, ht, c);
+        model.setRowCount(0);
+        model = (DefaultTableModel) tblKhuyenMai.getModel();
+        for (KhuyenMai x : list) {           
+            model.addRow(new Object[]{
+                x.getIDKhuyenMai(),
+                x.getTenKhuyenMai(),
+                x.KieuKM(x.isKieuGiamGia()),
+                fomat.format(x.getMucGiamGia()),
+                x.getSoLuong(),
+                x.getNgayBatDau(),
+                x.getNgayKetThuc(),
+                x.trangThai(x.getTrangThai()),
+                x.getMoTa()
+            });
+
         }
     }
 
