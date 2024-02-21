@@ -108,7 +108,37 @@ public class BanHangRepository {
             + "FETCH NEXT ? ROWS ONLY";
     String select_KieuGG = "select kieugiamgia from khuyenmai where id =?";
     String select_MucGG = "select mucgiamgia from khuyenmai where id = ?";
+    String select_TTThongkke ="select sum(TongTien) from HoaDon where trangthai = 3";
+    String select_soKhachHangTK = "select COUNT(DISTINCT  IdKhachHang) from HoaDon where TrangThai = 3";
+    
+      public int selectsoKhachHangTK(){
+        int KH = 0;
+         try {
+            ResultSet rs = JdbcHelper.query(select_soKhachHangTK);
 
+            if (rs.next()) {
+                KH = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KH;
+    }
+    
+    public int selectTTThongKe(){
+        int TTThongKe = 0;
+         try {
+            ResultSet rs = JdbcHelper.query(select_TTThongkke);
+
+            if (rs.next()) {
+                TTThongKe = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return TTThongKe;
+    }
+    
     public String selectMucGG(int id) {
         String mucGG = null;
         try {

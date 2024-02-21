@@ -65,7 +65,7 @@ public class Main extends javax.swing.JFrame {
                             setForm(khachhang);
                             break;
                         case 5:
-                            setForm(home);
+                            setForm(thongke);
                             break;
                         case 6:
                             setForm(khuyenmai);
