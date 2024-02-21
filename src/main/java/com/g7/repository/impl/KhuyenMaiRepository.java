@@ -182,6 +182,34 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
         return totalItems;
     }
     
+    public List<KhuyenMai> SearchTheoTen(String ten , int offset, int fetchSize){
+        String sql = "SELECT KhuyenMai.Id, KhuyenMai.TenKhuyenMai, KhuyenMai.MoTa,KhuyenMai.SoLuong, KhuyenMai.KieuGiamGia, KhuyenMai.MucGiamGia, KhuyenMai.NgayBatDau, KhuyenMai.NgayKetThuc, KhuyenMai.TrangThai FROM KhuyenMai\n"
+                + "WHERE TrangThai = 1 AND KhuyenMai.TenKhuyenMai LIKE ?\n"
+                + "ORDER BY KhuyenMai.Id\n"
+                + "OFFSET ? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY";
+        ten = "%" + ten + "%";
+        List<KhuyenMai> listSearch = new ArrayList<>();
+        try {
+           ResultSet rs = JdbcHelper.query(sql, ten, offset, fetchSize);
+            while (rs.next()) {                
+                KhuyenMai km = new KhuyenMai();
+                km.setIDKhuyenMai(rs.getInt(1));
+                km.setTenKhuyenMai(rs.getString(2));
+                km.setMoTa(rs.getString(3));
+                km.setSoLuong(rs.getInt(4));
+                km.setKieuGiamGia(rs.getBoolean(5));
+                km.setMucGiamGia(rs.getDouble(6));
+                km.setNgayBatDau(rs.getDate(7));
+                km.setNgayKetThuc(rs.getDate(8));
+                km.setTrangThai(rs.getInt(9));
+                listSearch.add(km); 
+            }
+        } catch (Exception e) {
+        }
+        return listSearch;
+    }
+    
     
     
     
