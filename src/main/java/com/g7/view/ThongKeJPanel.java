@@ -384,11 +384,11 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void CalendarTuCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_CalendarTuCaretPositionChanged
-        JOptionPane.showMessageDialog(this, "SHow");
+//        JOptionPane.showMessageDialog(this, "SHow");
     }//GEN-LAST:event_CalendarTuCaretPositionChanged
 
     private void CalendarTuInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_CalendarTuInputMethodTextChanged
-        JOptionPane.showMessageDialog(this, "SHow");
+//        JOptionPane.showMessageDialog(this, "SHow");
     }//GEN-LAST:event_CalendarTuInputMethodTextChanged
 
     private void CalendarTu1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_CalendarTu1CaretPositionChanged
