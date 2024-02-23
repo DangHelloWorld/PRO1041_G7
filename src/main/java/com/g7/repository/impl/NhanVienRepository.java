@@ -29,7 +29,7 @@ public class NhanVienRepository {
         String sql = "SELECT NhanVien.Id,NhanVien.TenNhanVien, NhanVien.GioiTinh,NhanVien.NgaySinh,NhanVien.SoDienThoai,NhanVien.DiaChi,NhanVien.Email,NhanVien.NgayTao,NhanVien.MatKhau,NhanVien.idChucVU,NhanVien.TrangThai\n"
                 + "FROM NhanVien\n"
                 + "WHERE NhanVien.TrangThai = 1\n"
-                + "ORDER BY NhanVien.Id \n"
+                + "ORDER BY NhanVien.Id DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY;";
 
@@ -62,7 +62,7 @@ public class NhanVienRepository {
         String sql = "SELECT NhanVien.Id,NhanVien.TenNhanVien, NhanVien.GioiTinh,NhanVien.NgaySinh,NhanVien.SoDienThoai,NhanVien.DiaChi,NhanVien.Email,NhanVien.NgayTao,NhanVien.MatKhau,NhanVien.idChucVU,NhanVien.TrangThai\n"
                 + "FROM NhanVien\n"
                 + "WHERE NhanVien.TrangThai = 0\n"
-                + "ORDER BY NhanVien.Id \n"
+                + "ORDER BY NhanVien.Id DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY;";
 
@@ -240,7 +240,7 @@ public class NhanVienRepository {
         String sql = "SELECT NhanVien.Id,NhanVien.TenNhanVien, NhanVien.GioiTinh,NhanVien.NgaySinh,NhanVien.SoDienThoai,NhanVien.DiaChi,NhanVien.Email,NhanVien.NgayTao,NhanVien.MatKhau,NhanVien.idChucVU,NhanVien.TrangThai\n"
                 + "FROM NhanVien\n"
                 + "WHERE NhanVien.TrangThai = 1 AND NhanVien.Email LIKE ?\n"
-                + "ORDER BY NhanVien.Id \n"
+                + "ORDER BY NhanVien.Id DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY;";
 
@@ -273,7 +273,7 @@ public class NhanVienRepository {
         String sql = "SELECT NhanVien.Id,NhanVien.TenNhanVien, NhanVien.GioiTinh,NhanVien.NgaySinh,NhanVien.SoDienThoai,NhanVien.DiaChi,NhanVien.Email,NhanVien.NgayTao,NhanVien.MatKhau,NhanVien.idChucVU,NhanVien.TrangThai\n"
                 + "FROM NhanVien\n"
                 + "WHERE NhanVien.TrangThai = 1 AND NhanVien.TenNhanVien LIKE ?\n"
-                + "ORDER BY NhanVien.Id \n"
+                + "ORDER BY NhanVien.Id DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY;";
 
@@ -308,7 +308,7 @@ public class NhanVienRepository {
         String sql = "SELECT NhanVien.Id,NhanVien.TenNhanVien, NhanVien.GioiTinh,NhanVien.NgaySinh,NhanVien.SoDienThoai,NhanVien.DiaChi,NhanVien.Email,NhanVien.NgayTao,NhanVien.MatKhau,NhanVien.idChucVU,NhanVien.TrangThai\n"
                 + "FROM NhanVien\n"
                 + "WHERE NhanVien.TrangThai = 1 AND NhanVien.SoDienThoai LIKE ?\n"
-                + "ORDER BY NhanVien.Id \n"
+                + "ORDER BY NhanVien.Id DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY;";
 

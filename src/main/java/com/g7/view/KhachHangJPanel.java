@@ -399,11 +399,6 @@ public class KhachHangJPanel extends javax.swing.JPanel {
                 txtTimKiemActionPerformed(evt);
             }
         });
-        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTimKiemKeyReleased(evt);
-            }
-        });
 
         bntTimKiem.setText("Tìm kiếm");
         bntTimKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -655,22 +650,33 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     private void bntTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntTimKiemActionPerformed
         // TODO add your handling code here:
         String keyword = txtTimKiem.getText();
+        int i = 0;
+        
         try {
+            if (i != 0) {
+                findWithPaginationKH(0, size);
+                i = 0;
+                System.exit(0);
+            }
             if (checkTimKiem()) {
                 if (txtTimKiem.getText().matches("^(0|\\+84|\\84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
                     findbySDT(keyword, 0, size);
+                    i++;
                 } else if (txtTimKiem.getText().matches("^KH\\d{4}")) {
                     findByMaKH(keyword, 0, size);
+                    i++;
                 } else if (txtTimKiem.getText().matches("\\d{4}") || txtTimKiem.getText().matches("\\d{3}") || txtTimKiem.getText().matches("\\d{2}") || txtTimKiem.getText().matches("\\d{1}")) {
                     findByIdKH(Integer.parseInt(keyword));
+                    i++;
                 } else {
                     findByTenKH(keyword, 0, size);
+                    i++;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_bntTimKiemActionPerformed
 
     private void tbKhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKhachHangMousePressed
@@ -714,18 +720,6 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         lbPresentPage.setText(ht + " / " + maxPage);
     }//GEN-LAST:event_rdbntNoActiveMouseClicked
-
-    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-        // TODO add your handling code here:
-        Action action = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                bntTimKiemActionPerformed(e);
-            }
-        };
-        txtTimKiem.addActionListener(action);
-        bntTimKiem.addActionListener(action);
-    }//GEN-LAST:event_txtTimKiemKeyReleased
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
