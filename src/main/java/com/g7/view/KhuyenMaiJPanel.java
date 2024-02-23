@@ -54,10 +54,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
-        txtNgayBDTK = new com.toedter.calendar.JDateChooser();
-        txtNgayKTTK = new com.toedter.calendar.JDateChooser();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         btnFirst = new javax.swing.JButton();
         btnPre = new javax.swing.JButton();
         lblPage = new javax.swing.JLabel();
@@ -121,10 +117,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel12.setText("Start");
-
-        jLabel13.setText("End");
-
         btnFirst.setText("<");
         btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,22 +168,11 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
                                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(txtNgayBDTK, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txtNgayKTTK, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                        .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 220, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,14 +193,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNgayKTTK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNgayBDTK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnTim, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(txtSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -506,8 +482,6 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -525,9 +499,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblKhuyenMai;
     private javax.swing.JTextArea txtMoTa;
     private javax.swing.JTextField txtMucGG;
-    private com.toedter.calendar.JDateChooser txtNgayBDTK;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
-    private com.toedter.calendar.JDateChooser txtNgayKTTK;
     private com.toedter.calendar.JDateChooser txtNgayKetThuc;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSoLuong;
@@ -724,31 +696,31 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         lblPage.setText(ht + " / " + maxPage);
     }
 
-    public void validate() {
-        try {
-            Date date1 = txtNgayBDTK.getDate();
-            Date date2 = txtNgayKTTK.getDate();
-
-            if (date1 != null && date2 != null) {
-                long differenceInMillis = Math.abs(date1.getTime() - date2.getTime());
-                long differenceInDays = differenceInMillis / (24 * 60 * 60 * 1000);
-
-                if (differenceInDays >= 31) {
-                    JOptionPane.showMessageDialog(this, "Chỉ tìm kiểm trong khoảng 31 ngày");
-                } else {
-                    String nbd = ft.format(txtNgayBDTK.getDate());
-                    String nkt = ft.format(txtNgayKetThuc.getDate());
-//                    Search(nbd, nkt, 0, size);
-                }
-
-            } else {
-                System.out.println("chịu");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void validate() {
+//        try {
+//            Date date1 = txtNgayBDTK.getDate();
+//            Date date2 = txtNgayKTTK.getDate();
+//
+//            if (date1 != null && date2 != null) {
+//                long differenceInMillis = Math.abs(date1.getTime() - date2.getTime());
+//                long differenceInDays = differenceInMillis / (24 * 60 * 60 * 1000);
+//
+//                if (differenceInDays >= 31) {
+//                    JOptionPane.showMessageDialog(this, "Chỉ tìm kiểm trong khoảng 31 ngày");
+//                } else {
+//                    String nbd = ft.format(txtNgayBDTK.getDate());
+//                    String nkt = ft.format(txtNgayKetThuc.getDate());
+////                    Search(nbd, nkt, 0, size);
+//                }
+//
+//            } else {
+//                System.out.println("chịu");
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void searchTen(String ten, int ht, int c) {
         List<KhuyenMai> list = kmr.SearchTheoTen(ten, ht, c);
