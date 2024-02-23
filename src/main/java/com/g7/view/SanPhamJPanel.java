@@ -1402,7 +1402,14 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Mã Sản Phẩm Cần Phải Hơn 6 Ký Tự.");
             return null;
         }
-        if (!txt_MaSanPham.getText().equals(tbl_DanhSachSPCT.getValueAt(indexSPCT, 1).toString())) {
+        if (layId) {
+            if (!txt_MaSanPham.getText().equals(tbl_DanhSachSPCT.getValueAt(indexSPCT, 1).toString())) {
+                if (!Service_SanPhamCT.checkMaSp(txt_MaSanPham.getText())) {
+                    JOptionPane.showMessageDialog(this, "Mã Sản Phẩm Đã Tồn Tại");
+                    return null;
+                }
+            }
+        } else {
             if (!Service_SanPhamCT.checkMaSp(txt_MaSanPham.getText())) {
                 JOptionPane.showMessageDialog(this, "Mã Sản Phẩm Đã Tồn Tại");
                 return null;
