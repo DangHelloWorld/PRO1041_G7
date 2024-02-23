@@ -133,6 +133,75 @@ public class BanHangRepository {
             + "                  dbo.HoaDonChiTiet ON dbo.ChiTietSanPham.Id = dbo.HoaDonChiTiet.IdCTSanPham INNER JOIN\n"
             + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
             + "				  where dbo.HoaDon.TrangThai = 3";
+    
+     String select_TTThongkke_TheoNgay = "select sum(TongTien) from HoaDon where trangthai = 3 and NgayThanhToan BETWEEN ? and ?";
+    String select_soKhachHangTK_TheoNgay = "select COUNT(DISTINCT  IdKhachHang) from HoaDon where TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
+    String select_TongHD_TheoNgay = "SELECT COUNT(DISTINCT id)\n"
+            + "FROM HoaDon where TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
+
+    String select_totalHDSP_TheoNgay = "SELECT COUNT(DISTINCT IdCTSanPham)\n"
+            + "FROM     dbo.ChiTietSanPham INNER JOIN\n"
+            + "                  dbo.HoaDon ON dbo.ChiTietSanPham.Id = dbo.HoaDon.Id INNER JOIN\n"
+            + "                  dbo.HoaDonChiTiet ON dbo.ChiTietSanPham.Id = dbo.HoaDonChiTiet.IdCTSanPham INNER JOIN\n"
+            + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
+            + "				  where dbo.HoaDon.TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
+    
+     public int totalHDSPTheoNgay(String nbd, String NKT) {
+        int sp = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(select_totalHDSP);
+
+            if (rs.next()) {
+                sp = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sp;
+    }
+
+    public int totalHDTheoNgay() {
+        int hd = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(select_TongHD);
+
+            if (rs.next()) {
+                hd = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hd;
+    }
+
+    public int selectsoKhachHangTKTheoNgay() {
+        int KH = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(select_soKhachHangTK);
+
+            if (rs.next()) {
+                KH = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KH;
+    }
+
+    public int selectTTThongKeTheoNgay() {
+        int TTThongKe = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(select_TTThongkke);
+
+            if (rs.next()) {
+                TTThongKe = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return TTThongKe;
+    }
+    
 
     public List<CTSPBanHangViewModel> timkiemsp(String ten, int offset, int fetchSize) {
 

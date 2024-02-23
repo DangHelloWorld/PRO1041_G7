@@ -1106,14 +1106,14 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Hãy Chọn Chất Liệu.");
             return null;
         }
-        int checkTonTaiTT = Service_SanPham.ktrThuocTinh(
-                Service_ThuocTinh.selectIdByName(cbo_NSX.getSelectedItem().toString(), 0),
-                Service_ThuocTinh.selectIdByName(cbo_ChatLieu.getSelectedItem().toString(), 2),
-                Service_ThuocTinh.selectIdByName(cbo_DanhMuc.getSelectedItem().toString(), 1));
-        if (checkTonTaiTT != -1) {
-            JOptionPane.showMessageDialog(this, "Sản Phầm Bạn Thêm Đã Trùng Các Thuộc Tính Của Sản Phẩm Có ID Là: " + checkTonTaiTT);
-            return null;
-        }
+//        int checkTonTaiTT = Service_SanPham.ktrThuocTinh(
+//                Service_ThuocTinh.selectIdByName(cbo_NSX.getSelectedItem().toString(), 0),
+//                Service_ThuocTinh.selectIdByName(cbo_ChatLieu.getSelectedItem().toString(), 2),
+//                Service_ThuocTinh.selectIdByName(cbo_DanhMuc.getSelectedItem().toString(), 1));
+//        if (checkTonTaiTT != -1) {
+//            JOptionPane.showMessageDialog(this, "Sản Phầm Bạn Thêm Đã Trùng Các Thuộc Tính Của Sản Phẩm Có ID Là: " + checkTonTaiTT);
+//            return null;
+//        }
         int idSanPham = 0;
         if (layID) {
             idSanPham = Integer.parseInt(tbl_DanhSachSP.getValueAt(indexSP, 0).toString());
@@ -1402,7 +1402,14 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Mã Sản Phẩm Cần Phải Hơn 6 Ký Tự.");
             return null;
         }
-        if (!txt_MaSanPham.getText().equals(tbl_DanhSachSPCT.getValueAt(indexSPCT, 1).toString())) {
+        if (layId) {
+            if (!txt_MaSanPham.getText().equals(tbl_DanhSachSPCT.getValueAt(indexSPCT, 1).toString())) {
+                if (!Service_SanPhamCT.checkMaSp(txt_MaSanPham.getText())) {
+                    JOptionPane.showMessageDialog(this, "Mã Sản Phẩm Đã Tồn Tại");
+                    return null;
+                }
+            }
+        } else {
             if (!Service_SanPhamCT.checkMaSp(txt_MaSanPham.getText())) {
                 JOptionPane.showMessageDialog(this, "Mã Sản Phẩm Đã Tồn Tại");
                 return null;
@@ -1440,15 +1447,15 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Hãy Chọn Hình Ảnh.");
             return null;
         }
-        int checkThuocTinh = Service_SanPhamCT.checkThuocTinhCT(
-                Service_SanPham.selectIdByName(cbo_SanPham.getSelectedItem().toString()),
-                Service_ThuocTinh.selectIdByName(cbo_Mau.getSelectedItem().toString(), 3),
-                Service_ThuocTinh.selectIdByName(cbo_KichThuoc.getSelectedItem().toString(), 4));
-        System.out.println("Id:" + checkThuocTinh);
-        if (checkThuocTinh != -1 && checkThuocTinh != Integer.parseInt(tbl_DanhSachSPCT.getValueAt(indexSPCT, 0).toString())) {
-            JOptionPane.showMessageDialog(this, "Sản Phẩm Này Đã Tồn Tại, Có Id Là:" + checkThuocTinh);
-            return null;
-        }
+//        int checkThuocTinh = Service_SanPhamCT.checkThuocTinhCT(
+//                Service_SanPham.selectIdByName(cbo_SanPham.getSelectedItem().toString()),
+//                Service_ThuocTinh.selectIdByName(cbo_Mau.getSelectedItem().toString(), 3),
+//                Service_ThuocTinh.selectIdByName(cbo_KichThuoc.getSelectedItem().toString(), 4));
+//        System.out.println("Id:" + checkThuocTinh);
+//        if (checkThuocTinh != -1 && checkThuocTinh != Integer.parseInt(tbl_DanhSachSPCT.getValueAt(indexSPCT, 0).toString())) {
+//            JOptionPane.showMessageDialog(this, "Sản Phẩm Này Đã Tồn Tại, Có Id Là:" + checkThuocTinh);
+//            return null;
+//        }
         int idSanPham = 0;
         if (layId) {
             idSanPham = Integer.parseInt(tbl_DanhSachSPCT.getValueAt(indexSPCT, 0).toString());
