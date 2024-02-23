@@ -125,6 +125,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btnSearchMaHD1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         tblhoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -252,6 +253,13 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Làm Mới");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,20 +285,21 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnSearchMaHD1)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(342, 342, 342)
+                                    .addComponent(btnnhoMax)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnnho)
+                                    .addGap(41, 41, 41)
+                                    .addComponent(btnlon)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnlonMax)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1))))
                         .addContainerGap(50, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(369, 369, 369)
-                .addComponent(btnnhoMax)
-                .addGap(18, 18, 18)
-                .addComponent(btnnho)
-                .addGap(41, 41, 41)
-                .addComponent(btnlon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnlonMax)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +323,8 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(btnnhoMax)
                     .addComponent(btnnho)
                     .addComponent(btnlon)
-                    .addComponent(btnlonMax))
+                    .addComponent(btnlonMax)
+                    .addComponent(jButton1))
                 .addGap(5, 5, 5)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -408,6 +418,10 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //        FindDataHD(900, size);
     }//GEN-LAST:event_btnlonMaxActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FindDataHD(ht, size);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser CalendarDen;
@@ -418,6 +432,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnnho;
     private javax.swing.JButton btnnhoMax;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
