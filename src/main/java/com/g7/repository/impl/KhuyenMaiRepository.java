@@ -91,7 +91,7 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
     public List<KhuyenMai> selectWithPagination(int offset, int fetchSize) {
             String sql = "SELECT KhuyenMai.Id, KhuyenMai.TenKhuyenMai, KhuyenMai.MoTa,KhuyenMai.SoLuong, KhuyenMai.KieuGiamGia, KhuyenMai.MucGiamGia, KhuyenMai.NgayBatDau, KhuyenMai.NgayKetThuc, KhuyenMai.TrangThai FROM KhuyenMai\n"
                 + "WHERE TrangThai = 1\n"
-                + "ORDER BY KhuyenMai.Id\n"
+                + "ORDER BY KhuyenMai.Id desc\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY";
         List<KhuyenMai> list = new ArrayList<>();
