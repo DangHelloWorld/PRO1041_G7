@@ -40,6 +40,20 @@ public class BanHangRepository {
             + "				  OFFSET ? ROWS \n"
             + "				  FETCH NEXT ? ROWS ONLY;";
 
+    String TimKiemSP = "		  SELECT dbo.ChiTietSanPham.Id, dbo.ChiTietSanPham.MaSanPham, dbo.SanPham.TenSanPham, dbo.KichCo.KichCo, dbo.MauSac.TenMauSac, dbo.DanhMuc.TenDanhMuc, dbo.NSX.TenNSX, dbo.ChiTietSanPham.SoLuong,\n"
+            + "                             dbo.ChiTietSanPham.GiaBan\n"
+            + "            FROM     dbo.ChiTietSanPham LEFT JOIN\n"
+            + "                              dbo.DanhMuc ON dbo.ChiTietSanPham.Id = dbo.DanhMuc.Id LEFT JOIN\n"
+            + "                              dbo.HinhAnh ON dbo.ChiTietSanPham.IdHinhAnh = dbo.HinhAnh.Id LEFT JOIN\n"
+            + "                             dbo.KichCo ON dbo.ChiTietSanPham.IdKichCo = dbo.KichCo.Id LEFT JOIN\n"
+            + "                             dbo.MauSac ON dbo.ChiTietSanPham.IdMauSac = dbo.MauSac.Id LEFT JOIN\n"
+            + "                              dbo.NSX ON dbo.ChiTietSanPham.Id = dbo.NSX.Id LEFT JOIN\n"
+            + "                             dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
+            + "            			  WHERE ChiTietSanPham.TrangThai = 1 and dbo.SanPham.TenSanPham LIKE ?		  \n"
+            + "            			  ORDER BY ID desc \n"
+            + "            				  OFFSET ? ROWS \n"
+            + "            			  FETCH NEXT ? ROWS ONLY;";
+
     String TotalItems_sp = "SELECT COUNT(*)\n"
             + "FROM     dbo.ChiTietSanPham INNER JOIN\n"
             + "                  dbo.DanhMuc ON dbo.ChiTietSanPham.Id = dbo.DanhMuc.Id LEFT JOIN\n"
@@ -108,12 +122,75 @@ public class BanHangRepository {
             + "FETCH NEXT ? ROWS ONLY";
     String select_KieuGG = "select kieugiamgia from khuyenmai where id =?";
     String select_MucGG = "select mucgiamgia from khuyenmai where id = ?";
-    String select_TTThongkke ="select sum(TongTien) from HoaDon where trangthai = 3";
+    String select_TTThongkke = "select sum(TongTien) from HoaDon where trangthai = 3";
     String select_soKhachHangTK = "select COUNT(DISTINCT  IdKhachHang) from HoaDon where TrangThai = 3";
-    
-      public int selectsoKhachHangTK(){
+    String select_TongHD = "SELECT COUNT(DISTINCT id)\n"
+            + "FROM HoaDon where TrangThai = 3";
+
+    String select_totalHDSP = "SELECT COUNT(DISTINCT IdCTSanPham)\n"
+            + "FROM     dbo.ChiTietSanPham INNER JOIN\n"
+            + "                  dbo.HoaDon ON dbo.ChiTietSanPham.Id = dbo.HoaDon.Id INNER JOIN\n"
+            + "                  dbo.HoaDonChiTiet ON dbo.ChiTietSanPham.Id = dbo.HoaDonChiTiet.IdCTSanPham INNER JOIN\n"
+            + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
+            + "				  where dbo.HoaDon.TrangThai = 3";
+
+    public List<CTSPBanHangViewModel> timkiemsp(String ten, int offset, int fetchSize) {
+
+        String sql = TimKiemSP;
+        ten = "%" + ten + "%";
+        List<CTSPBanHangViewModel> list = new ArrayList<>();
+        try {
+            ResultSet rs = JdbcHelper.query(sql, ten, offset, fetchSize);
+            while (rs.next()) {
+                CTSPBanHangViewModel entity = new CTSPBanHangViewModel();
+                entity.setId(rs.getString(1));
+                entity.setMasp(rs.getString(2));
+                entity.setTensp(rs.getString(3));
+                entity.setKichco(rs.getString(4));
+                entity.setMausac(rs.getString(5));
+                entity.setDanhmuc(rs.getString(6));
+                entity.setNsx(rs.getString(7));
+                entity.setSoluong(rs.getInt(8));
+                entity.setGiaban(rs.getDouble(9));
+                list.add(entity);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public int totalHDSP() {
+        int sp = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(select_totalHDSP);
+
+            if (rs.next()) {
+                sp = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sp;
+    }
+
+    public int totalHD() {
+        int hd = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(select_TongHD);
+
+            if (rs.next()) {
+                hd = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hd;
+    }
+
+    public int selectsoKhachHangTK() {
         int KH = 0;
-         try {
+        try {
             ResultSet rs = JdbcHelper.query(select_soKhachHangTK);
 
             if (rs.next()) {
@@ -124,10 +201,10 @@ public class BanHangRepository {
         }
         return KH;
     }
-    
-    public int selectTTThongKe(){
+
+    public int selectTTThongKe() {
         int TTThongKe = 0;
-         try {
+        try {
             ResultSet rs = JdbcHelper.query(select_TTThongkke);
 
             if (rs.next()) {
@@ -138,7 +215,7 @@ public class BanHangRepository {
         }
         return TTThongKe;
     }
-    
+
     public String selectMucGG(int id) {
         String mucGG = null;
         try {
@@ -593,8 +670,7 @@ public class BanHangRepository {
 
     public String addHDCT(HoaDonChiTiet hdct) {
         String sql = "INSERT INTO HoaDonChiTiet(IdHoaDon,IdCTSanPham,SoLuong, DonGia) VALUES (?,?,?,?)";
-        try (Connection con = JdbcHelper.openDbConnection(); 
-            PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, hdct.getIdHoaDon());
             ps.setObject(2, hdct.getIdCtSanPham());
             ps.setObject(3, hdct.getSoLuong());

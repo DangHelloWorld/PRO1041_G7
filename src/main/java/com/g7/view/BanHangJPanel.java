@@ -89,6 +89,18 @@ public class BanHangJPanel extends javax.swing.JPanel {
             });
         }
     }
+    
+      public void timKiemSP(String ten, int ht, int size) {
+        List<CTSPBanHangViewModel> list = BHRepo.timkiemsp(ten, ht, size);
+        defaultTableModelSP.setRowCount(0);
+        defaultTableModelSP = (DefaultTableModel) tbSP.getModel();
+        for (CTSPBanHangViewModel x : list) {
+            defaultTableModelSP.addRow(new Object[]{
+                x.getId(), x.getMasp(), x.getTensp(), x.getKichco(), x.getMausac(), x.getDanhmuc(), x.getNsx(), x.getSoluong(), x.getGiaban()
+            });
+        }
+    }
+
 
     public void FindDataGH(int id) {
         List<GioHangViewModel> list = BHRepo.selectWithPaginationGH(id);
@@ -509,6 +521,9 @@ public class BanHangJPanel extends javax.swing.JPanel {
         btnLast = new javax.swing.JButton();
         lblPageSP = new javax.swing.JLabel();
         btnAddToCart = new javax.swing.JButton();
+        txtTImKiemSP = new javax.swing.JTextField();
+        btnTImKiemSP = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -742,6 +757,20 @@ public class BanHangJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnTImKiemSP.setText("Tìm kiếm");
+        btnTImKiemSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTImKiemSPActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Reset");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -762,14 +791,24 @@ public class BanHangJPanel extends javax.swing.JPanel {
                         .addComponent(btnLast)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(39, 39, 39)
+                        .addComponent(txtTImKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTImKiemSP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
                         .addComponent(btnAddToCart)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(btnAddToCart)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddToCart)
+                    .addComponent(txtTImKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTImKiemSP)
+                    .addComponent(jButton3))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -1455,6 +1494,19 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnTimGGActionPerformed
 
+    private void btnTImKiemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTImKiemSPActionPerformed
+          String ten = txtTImKiemSP.getText().trim();
+        try {
+            timKiemSP(ten, 0, 400);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnTImKiemSPActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        FindDataSP(0, size);
+        txtTImKiemSP.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddKH;
@@ -1471,6 +1523,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnPreHDC;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnTImKiemSP;
     private javax.swing.JButton btnTKKH;
     private javax.swing.JButton btnTaoHD;
     private javax.swing.JButton btnThanhToan;
@@ -1478,6 +1531,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnXOa;
     private javax.swing.JComboBox<String> cbHTTT;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -1513,6 +1567,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tbGH;
     private javax.swing.JTable tbHDC;
     private javax.swing.JTable tbSP;
+    private javax.swing.JTextField txtTImKiemSP;
     private javax.swing.JTextField txtTienKhachDua;
     private javax.swing.JTextField txtTimGG;
     private javax.swing.JTextField txtTimKiemKH;
