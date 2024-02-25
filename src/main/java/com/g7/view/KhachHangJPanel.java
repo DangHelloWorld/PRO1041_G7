@@ -399,11 +399,6 @@ public class KhachHangJPanel extends javax.swing.JPanel {
                 txtTimKiemActionPerformed(evt);
             }
         });
-        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTimKiemKeyReleased(evt);
-            }
-        });
 
         bntTimKiem.setText("Tìm kiếm");
         bntTimKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -581,14 +576,17 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
+        if (!txtIDKhachHang.getText().matches("Không Cần Nhập")) {
+            try {
 
-        try {
+                this.update();
 
-            this.update();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
-            e.printStackTrace();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
+                e.printStackTrace();
+            }
+        } else {
+            MsgBox.alert(this, "Hãy chọn khách hàng cần sửa trong bảng!");
         }
     }//GEN-LAST:event_bntSuaActionPerformed
 
@@ -659,18 +657,30 @@ public class KhachHangJPanel extends javax.swing.JPanel {
             if (checkTimKiem()) {
                 if (txtTimKiem.getText().matches("^(0|\\+84|\\84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
                     findbySDT(keyword, 0, size);
+                    if (tbKhachHang.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 } else if (txtTimKiem.getText().matches("^KH\\d{4}")) {
                     findByMaKH(keyword, 0, size);
+                    if (tbKhachHang.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 } else if (txtTimKiem.getText().matches("\\d{4}") || txtTimKiem.getText().matches("\\d{3}") || txtTimKiem.getText().matches("\\d{2}") || txtTimKiem.getText().matches("\\d{1}")) {
                     findByIdKH(Integer.parseInt(keyword));
+                    if (tbKhachHang.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 } else {
                     findByTenKH(keyword, 0, size);
+                    if (tbKhachHang.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_bntTimKiemActionPerformed
 
     private void tbKhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKhachHangMousePressed
@@ -714,18 +724,6 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
         lbPresentPage.setText(ht + " / " + maxPage);
     }//GEN-LAST:event_rdbntNoActiveMouseClicked
-
-    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-        // TODO add your handling code here:
-        Action action = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                bntTimKiemActionPerformed(e);
-            }
-        };
-        txtTimKiem.addActionListener(action);
-        bntTimKiem.addActionListener(action);
-    }//GEN-LAST:event_txtTimKiemKeyReleased
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:

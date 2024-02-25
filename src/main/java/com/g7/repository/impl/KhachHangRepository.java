@@ -26,7 +26,7 @@ public class KhachHangRepository {
 
     String select_Pagination_kh = "SELECT dbo.KhachHang.id,dbo.KhachHang.MaKhachHang,dbo.KhachHang.TenKhachHang,dbo.KhachHang.SoDienThoai,dbo.KhachHang.NgayTao,dbo.KhachHang.TrangThai\n"
             + "FROM dbo.KhachHang\n"
-            + "WHERE dbo.KhachHang.TrangThai = 1 ORDER BY ID\n"
+            + "WHERE dbo.KhachHang.TrangThai = 1 ORDER BY ID DESC\n"
             + "OFFSET ? ROWS\n"
             + "FETCH NEXT  ? ROWS ONLY;";
 
@@ -59,7 +59,7 @@ public class KhachHangRepository {
 
         String sql = "SELECT dbo.KhachHang.id,dbo.KhachHang.MaKhachHang,dbo.KhachHang.TenKhachHang,dbo.KhachHang.SoDienThoai,dbo.KhachHang.NgayTao,dbo.KhachHang.TrangThai\n"
                 + "FROM dbo.KhachHang\n"
-                + "WHERE dbo.KhachHang.TrangThai = 0 ORDER BY ID\n"
+                + "WHERE dbo.KhachHang.TrangThai = 0 ORDER BY ID DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT  ? ROWS ONLY;";
 
@@ -216,7 +216,7 @@ public class KhachHangRepository {
         String sql = "SELECT dbo.KhachHang.id,dbo.KhachHang.MaKhachHang,dbo.KhachHang.TenKhachHang,dbo.KhachHang.SoDienThoai,dbo.KhachHang.NgayTao,dbo.KhachHang.TrangThai\n"
                 + "FROM dbo.KhachHang\n"
                 + "WHERE dbo.KhachHang.TrangThai = 1 AND dbo.KhachHang.MaKhachHang LIKE ?\n"
-                + "ORDER BY ID\n"
+                + "ORDER BY ID DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT  ? ROWS ONLY";
 
@@ -246,7 +246,7 @@ public class KhachHangRepository {
         String sql = "SELECT dbo.KhachHang.id,dbo.KhachHang.MaKhachHang,dbo.KhachHang.TenKhachHang,dbo.KhachHang.SoDienThoai,dbo.KhachHang.NgayTao,dbo.KhachHang.TrangThai\n"
                 + "FROM dbo.KhachHang\n"
                 + "WHERE dbo.KhachHang.TrangThai = 1 AND dbo.KhachHang.TenKhachHang LIKE ?\n"
-                + "ORDER BY ID\n"
+                + "ORDER BY ID DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT  ? ROWS ONLY";
 
@@ -275,7 +275,7 @@ public class KhachHangRepository {
         String sql = "SELECT dbo.KhachHang.id,dbo.KhachHang.MaKhachHang,dbo.KhachHang.TenKhachHang,dbo.KhachHang.SoDienThoai,dbo.KhachHang.NgayTao,dbo.KhachHang.TrangThai\n"
                 + "FROM dbo.KhachHang\n"
                 + "WHERE dbo.KhachHang.TrangThai = 1 AND dbo.KhachHang.SoDienThoai LIKE ?\n"
-                + "ORDER BY ID\n"
+                + "ORDER BY ID DESC\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT  ? ROWS ONLY";
         
