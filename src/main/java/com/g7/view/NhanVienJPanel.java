@@ -16,8 +16,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class NhanVienJPanel extends javax.swing.JPanel {
 
     private NhanVienRepository NVrepo = new NhanVienRepository();
@@ -443,8 +441,6 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         }
     }
 
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -822,15 +818,15 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(bntTimKiem)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnltbNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bntXoa)
                     .addComponent(bntFirstPage)
                     .addComponent(bntPrevPage)
                     .addComponent(bntNextPage)
                     .addComponent(bntLastPage)
-                    .addComponent(lbPresentPage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bntXoa))
+                    .addComponent(lbPresentPage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -846,19 +842,23 @@ public class NhanVienJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnltbNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnltbNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
-        try {
+        if (!txtIDNhanVien.getText().matches("Không Cần Nhập")) {
+            try {
 
-            this.update();
+                this.update();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
-            e.printStackTrace();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
+                e.printStackTrace();
+            }
+        } else {
+            MsgBox.alert(this, "Hãy chọn nhân viên cần sửa trong bảng!");
         }
     }//GEN-LAST:event_bntSuaActionPerformed
 
@@ -889,18 +889,30 @@ public class NhanVienJPanel extends javax.swing.JPanel {
             if (checkTimKiem()) {
                 if (txtTimKiem.getText().matches("^(0|\\+84|\\84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
                     findbySDT(keyword, 0, size);
+                    if (tbNhanVien.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 } else if (txtTimKiem.getText().contains("@gmail.com")) {
                     findbyEmail(keyword, 0, size);
+                    if (tbNhanVien.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 } else if (txtTimKiem.getText().matches("\\d{4}") || txtTimKiem.getText().matches("\\d{3}") || txtTimKiem.getText().matches("\\d{2}") || txtTimKiem.getText().matches("\\d{1}")) {
                     findbyIdNV(Integer.parseInt(keyword));
+                    if (tbNhanVien.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 } else {
                     findbyTenNV(keyword, 0, size);
+                    if (tbNhanVien.getColumnCount() == 0) {
+                        MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_bntTimKiemActionPerformed
 
     private void bntFirstPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntFirstPageActionPerformed
@@ -953,7 +965,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.index = tbNhanVien.rowAtPoint(evt.getPoint());
         this.edit();
-        
+
     }//GEN-LAST:event_tbNhanVienMousePressed
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
