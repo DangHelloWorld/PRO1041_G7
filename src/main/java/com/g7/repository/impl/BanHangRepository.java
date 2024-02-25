@@ -26,19 +26,32 @@ import java.util.List;
  */
 public class BanHangRepository {
 
-    String select_Pagination_sp = "SELECT dbo.ChiTietSanPham.Id, dbo.ChiTietSanPham.MaSanPham, dbo.SanPham.TenSanPham, dbo.KichCo.KichCo, dbo.MauSac.TenMauSac, dbo.DanhMuc.TenDanhMuc, dbo.NSX.TenNSX, dbo.ChiTietSanPham.SoLuong, \n"
-            + "                  dbo.ChiTietSanPham.GiaBan\n"
-            + "FROM     dbo.ChiTietSanPham LEFT JOIN\n"
-            + "                  dbo.DanhMuc ON dbo.ChiTietSanPham.Id = dbo.DanhMuc.Id LEFT JOIN\n"
-            + "                  dbo.HinhAnh ON dbo.ChiTietSanPham.IdHinhAnh = dbo.HinhAnh.Id LEFT JOIN\n"
-            + "                  dbo.KichCo ON dbo.ChiTietSanPham.IdKichCo = dbo.KichCo.Id LEFT JOIN\n"
-            + "                  dbo.MauSac ON dbo.ChiTietSanPham.IdMauSac = dbo.MauSac.Id LEFT JOIN\n"
-            + "                  dbo.NSX ON dbo.ChiTietSanPham.Id = dbo.NSX.Id LEFT JOIN\n"
-            + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
-            + "				  WHERE ChiTietSanPham.TrangThai = 1		  \n"
-            + "				  ORDER BY ID desc \n"
-            + "				  OFFSET ? ROWS \n"
-            + "				  FETCH NEXT ? ROWS ONLY;";
+    String select_Pagination_sp = "						  SELECT \n"
+            + "    chitietsanpham.Id AS IDchitietsanpham,\n"
+            + "    chitietsanpham.MaSanPham,\n"
+            + "    sanpham.TenSanPham AS tensp,\n"
+            + "    kichco.KichCo AS ten_kichco,\n"
+            + "    mausac.TenMauSac AS ten_mausac,\n"
+            + "    danhmuc.TenDanhMuc AS ten_danhmuc,\n"
+            + "    nsx.TenNSX AS ten_nsx,\n"
+            + "    chitietsanpham.SoLuong AS soluong,\n"
+            + "    chitietsanpham.GiaBan AS giaban\n"
+            + "FROM \n"
+            + "    ChiTietSanPham chitietsanpham\n"
+            + "JOIN \n"
+            + "    SanPham sanpham ON chitietsanpham.IdSanPham = sanpham.Id\n"
+            + "JOIN \n"
+            + "    KichCo kichco ON chitietsanpham.IdKichCo = kichco.Id\n"
+            + "JOIN \n"
+            + "    MauSac mausac ON chitietsanpham.IdMauSac = mausac.Id\n"
+            + "JOIN \n"
+            + "    DanhMuc danhmuc ON sanpham.IdDanhMuc = danhmuc.Id\n"
+            + "JOIN \n"
+            + "    nsx nsx ON sanpham.IdNSX = nsx.Id\n"
+            + "	WHERE ChiTietSanPham.TrangThai = 1		  \n"
+            + "            			  ORDER BY IDchitietsanpham desc \n"
+            + "            			  OFFSET ? ROWS \n"
+            + "            			  FETCH NEXT ? ROWS ONLY";
 
     String TimKiemSP = "		  SELECT dbo.ChiTietSanPham.Id, dbo.ChiTietSanPham.MaSanPham, dbo.SanPham.TenSanPham, dbo.KichCo.KichCo, dbo.MauSac.TenMauSac, dbo.DanhMuc.TenDanhMuc, dbo.NSX.TenNSX, dbo.ChiTietSanPham.SoLuong,\n"
             + "                             dbo.ChiTietSanPham.GiaBan\n"
@@ -133,8 +146,8 @@ public class BanHangRepository {
             + "                  dbo.HoaDonChiTiet ON dbo.ChiTietSanPham.Id = dbo.HoaDonChiTiet.IdCTSanPham INNER JOIN\n"
             + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
             + "				  where dbo.HoaDon.TrangThai = 3";
-    
-     String select_TTThongkke_TheoNgay = "select sum(TongTien) from HoaDon where trangthai = 3 and NgayThanhToan BETWEEN ? and ?";
+
+    String select_TTThongkke_TheoNgay = "select sum(TongTien) from HoaDon where trangthai = 3 and NgayThanhToan BETWEEN ? and ?";
     String select_soKhachHangTK_TheoNgay = "select COUNT(DISTINCT  IdKhachHang) from HoaDon where TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
     String select_TongHD_TheoNgay = "SELECT COUNT(DISTINCT id)\n"
             + "FROM HoaDon where TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
@@ -145,8 +158,8 @@ public class BanHangRepository {
             + "                  dbo.HoaDonChiTiet ON dbo.ChiTietSanPham.Id = dbo.HoaDonChiTiet.IdCTSanPham INNER JOIN\n"
             + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
             + "				  where dbo.HoaDon.TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
-    
-     public int totalHDSPTheoNgay(String nbd, String NKT) {
+
+    public int totalHDSPTheoNgay(String nbd, String NKT) {
         int sp = 0;
         try {
             ResultSet rs = JdbcHelper.query(select_totalHDSP);
@@ -201,7 +214,6 @@ public class BanHangRepository {
         }
         return TTThongKe;
     }
-    
 
     public List<CTSPBanHangViewModel> timkiemsp(String ten, int offset, int fetchSize) {
 
