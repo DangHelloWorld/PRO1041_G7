@@ -848,10 +848,14 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
-        if (!txtIDNhanVien.getText().matches("Không Cần Nhập")) {
+        if (tbNhanVien.getSelectedRowCount() != 0) {
             try {
 
-                this.update();
+                if (MsgBox.confirm(this, "Bạn muốn sửa nhân viên này?")) {
+                    this.update();
+                } else {
+                    MsgBox.alert(this, "Hủy thành công");
+                }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
@@ -867,7 +871,11 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         try {
 
             if (checkNV()) {
-                this.insert();
+                if (MsgBox.confirm(this, "Bạn muốn thêm nhân viên này?")) {
+                    this.insert();
+                } else {
+                    MsgBox.alert(this, "Hủy thành công");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
@@ -887,24 +895,24 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         String keyword = txtTimKiem.getText();
         try {
             if (checkTimKiem()) {
-                if (txtTimKiem.getText().matches("^(0|\\+84|\\84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
+                if (txtTimKiem.getText().matches("^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
                     findbySDT(keyword, 0, size);
-                    if (tbNhanVien.getColumnCount() == 0) {
+                    if (tbNhanVien.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
-                } else if (txtTimKiem.getText().contains("@gmail.com")) {
+                } else if (txtTimKiem.getText().contains("@")) {
                     findbyEmail(keyword, 0, size);
-                    if (tbNhanVien.getColumnCount() == 0) {
+                    if (tbNhanVien.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 } else if (txtTimKiem.getText().matches("\\d{4}") || txtTimKiem.getText().matches("\\d{3}") || txtTimKiem.getText().matches("\\d{2}") || txtTimKiem.getText().matches("\\d{1}")) {
                     findbyIdNV(Integer.parseInt(keyword));
-                    if (tbNhanVien.getColumnCount() == 0) {
+                    if (tbNhanVien.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 } else {
                     findbyTenNV(keyword, 0, size);
-                    if (tbNhanVien.getColumnCount() == 0) {
+                    if (tbNhanVien.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 }
@@ -970,13 +978,17 @@ public class NhanVienJPanel extends javax.swing.JPanel {
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
         // TODO add your handling code here:
-        try {
+        if (tbNhanVien.getSelectedRowCount() != 0) {
+            try {
 
-            this.delete();
+                this.delete();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
-            e.printStackTrace();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
+                e.printStackTrace();
+            }
+        } else {
+            MsgBox.alert(this, "Hãy chọn nhân viên cần xóa");
         }
     }//GEN-LAST:event_bntXoaActionPerformed
 

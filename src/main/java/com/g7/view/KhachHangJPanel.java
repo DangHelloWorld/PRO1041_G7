@@ -575,15 +575,20 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     private void bntLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLamMoiActionPerformed
         // TODO add your handling code here:
         ResetForm();
-        
+
     }//GEN-LAST:event_bntLamMoiActionPerformed
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
         // TODO add your handling code here:
-        if (!txtIDKhachHang.getText().matches("Không Cần Nhập")) {
+        if (tbKhachHang.getSelectedRowCount() != 0) {
             try {
-
-                this.update();
+                if (checkKH()) {
+                    if (MsgBox.confirm(this, "Bạn muốn sửa khách hàng này?")) {
+                        this.update();
+                    } else {
+                        MsgBox.alert(this, "Hủy thành công");
+                    }
+                }
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
@@ -599,7 +604,11 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         try {
 
             if (checkKH()) {
-                this.insert();
+                if (MsgBox.confirm(this, "Bạn muốn thêm khách hàng này?")) {
+                    this.insert();
+                } else {
+                    MsgBox.alert(this, "Hủy thành công");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
@@ -659,24 +668,24 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         String keyword = txtTimKiem.getText();
         try {
             if (checkTimKiem()) {
-                if (txtTimKiem.getText().matches("^(0|\\+84|\\84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
+                if (txtTimKiem.getText().matches("^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$")) {
                     findbySDT(keyword, 0, size);
-                    if (tbKhachHang.getColumnCount() == 0) {
+                    if (tbKhachHang.getRowCount()== 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 } else if (txtTimKiem.getText().matches("^KH\\d{4}")) {
                     findByMaKH(keyword, 0, size);
-                    if (tbKhachHang.getColumnCount() == 0) {
+                    if (tbKhachHang.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 } else if (txtTimKiem.getText().matches("\\d{4}") || txtTimKiem.getText().matches("\\d{3}") || txtTimKiem.getText().matches("\\d{2}") || txtTimKiem.getText().matches("\\d{1}")) {
                     findByIdKH(Integer.parseInt(keyword));
-                    if (tbKhachHang.getColumnCount() == 0) {
+                    if (tbKhachHang.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 } else {
                     findByTenKH(keyword, 0, size);
-                    if (tbKhachHang.getColumnCount() == 0) {
+                    if (tbKhachHang.getRowCount() == 0) {
                         MsgBox.alert(this, "Không có dữ liệu trùng với từ khóa!");
                     }
                 }
@@ -689,13 +698,17 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
         // TODO add your handling code here:
-        try {
-            
-            this.delete();
+        if (tbKhachHang.getSelectedRowCount() != 0) {
+            try {
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
-            e.printStackTrace();
+                this.delete();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi, Vui lòng xem lại");
+                e.printStackTrace();
+            }
+        } else {
+            MsgBox.alert(this, "Hãy chọn khách hàng cần xóa");
         }
 
     }//GEN-LAST:event_bntXoaActionPerformed
