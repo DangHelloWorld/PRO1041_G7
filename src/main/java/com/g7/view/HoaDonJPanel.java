@@ -230,6 +230,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             }
         });
 
+        CalendarTu.setDateFormatString("yyyy-MM-dd");
         CalendarTu.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 CalendarTuCaretPositionChanged(evt);
@@ -238,6 +239,8 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 CalendarTuInputMethodTextChanged(evt);
             }
         });
+
+        CalendarDen.setDateFormatString("yyyy-MM-dd");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel6.setText("Tìm Hoá Đơn:");

@@ -30,6 +30,7 @@ public class HoaDonViewModel {
     private Double TongTien;
     private int hinhThucThanhToan;
     private double SoTienDuocGiam;
+    private int idkm;
 
     public String trangThai(int trangthai) {
         if (trangthai == 1) {

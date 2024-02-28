@@ -108,7 +108,7 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
                 + "OFFSET \n"
                 + "    ? ROWS\n"
                 + "FETCH NEXT \n"
-                + "    ? ROWS ONLY;";
+                + "    ? ROWS ONLY";
         List<KhuyenMai> list = new ArrayList<>();
         try {
             ResultSet rs = JdbcHelper.query(sql, nbd, nkt, offset, fetchSize);

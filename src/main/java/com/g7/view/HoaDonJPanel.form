@@ -364,12 +364,18 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="CalendarTu">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
       <Events>
         <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="CalendarTuCaretPositionChanged"/>
         <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="CalendarTuInputMethodTextChanged"/>
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="CalendarDen">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>

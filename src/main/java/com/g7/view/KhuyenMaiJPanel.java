@@ -9,6 +9,7 @@ import com.g7.repository.impl.KhuyenMaiRepository;
 import com.g7.utils.MsgBox;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -163,9 +164,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtTu.setDateFormatString("dd-MM-yyyy");
+        txtTu.setDateFormatString("yyyy-MM-dd");
 
-        txtDen.setDateFormatString("dd-MM-yyyy");
+        txtDen.setDateFormatString("yyyy-MM-dd");
 
         jLabel8.setText("Từ");
 
@@ -187,9 +188,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel11))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtTu, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel12)
@@ -199,7 +200,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                                 .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 220, Short.MAX_VALUE)
+                        .addGap(0, 217, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,12 +227,12 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDen, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(txtDen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnTim, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(txtSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFirst)
@@ -349,7 +350,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboLoaiGG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtMucGG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -395,7 +396,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -492,7 +493,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
@@ -553,10 +554,10 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void SearchDate(String nbd, String nkt, int ht, int size) {
-        List<KhuyenMai> list = kmr.SearchDate(nbd, nkt, size, size);
+        List<KhuyenMai> list = kmr.SearchDate(nbd, nkt, ht, size);
         model.setRowCount(0);
         model = (DefaultTableModel) tblKhuyenMai.getModel();
-        
+
         for (KhuyenMai km : list) {
             model.addRow(new Object[]{
                 km.getIDKhuyenMai(), km.getTenKhuyenMai(), km.KieuKM(km.isKieuGiamGia()), fomat.format(km.getMucGiamGia()), km.getSoLuong(), km.getNgayBatDau(), km.getNgayKetThuc(), km.trangThai(km.getTrangThai()), km.getMoTa()
@@ -565,6 +566,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         }
 
     }
+
     public void CheckSearchDate() {
         try {
             Date date1 = txtTu.getDate();
@@ -579,11 +581,13 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 } else {
                     String nbd = ft.format(txtTu.getDate());
                     String nkt = ft.format(txtDen.getDate());
+                    System.out.println("vào được");
                     SearchDate(nbd, nkt, 0, size);
+
                 }
 
             } else {
-                System.out.println("chịu");
+                System.out.println("cút");
             }
 
         } catch (Exception e) {
@@ -617,13 +621,41 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             txtNgayKetThuc.requestFocus();
             return false;
         }
-        if (cboLoaiGG.getSelectedIndex() == 1) {
+        int mucGGVND = Integer.parseInt(txtMucGG.getText());
+        if (mucGGVND <= 1000) {
+            MsgBox.alert(this, "Vui lòng nhập số tiền lớn 1000");
+            txtMucGG.requestFocus();
+            return false;
+        }
+        if (cboLoaiGG.getSelectedIndex() == 0) {
             int mucGG = Integer.parseInt(txtMucGG.getText());
-            if (mucGG > 100 || mucGG < 0) {
-                MsgBox.alert(this, "Vui lòng nhập mức giảm giá lớn 0 và nhỏ hơn 100");
+            if (mucGG <= 0) {
+                MsgBox.alert(this, "Vui lòng nhập % lớn 0");
                 cboLoaiGG.requestFocus();
                 return false;
             }
+        }
+        if (cboLoaiGG.getSelectedIndex() == 1) {
+            int mucGG = Integer.parseInt(txtMucGG.getText());
+            if (mucGG >= 100 || mucGG <= 0) {
+                MsgBox.alert(this, "Vui lòng nhập % lớn 0 và nhỏ hơn 100");
+                cboLoaiGG.requestFocus();
+                return false;
+            }
+        }
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
+        if (soLuong <= 0) {
+            MsgBox.alert(this, "Vui lòng nhập số lượng lớn hơn 0");
+            txtSoLuong.requestFocus();
+            return false;
+        }
+        Date nbd = txtNgayBatDau.getDate();
+        Date nkt = txtNgayKetThuc.getDate();
+        if (nbd.after(nkt)) {
+            MsgBox.alert(this, "Ngày bắt đầu phải nhỏ hơn ngày kết thúc, vui lòng nhập lại!");
+            txtNgayBatDau.requestFocus();
+            txtNgayKetThuc.requestFocus();
+            return false;
         }
         return true;
     }

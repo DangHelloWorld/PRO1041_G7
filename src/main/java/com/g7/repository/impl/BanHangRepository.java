@@ -125,7 +125,7 @@ public class BanHangRepository {
     String select_slSP_HT = "select soluong from chitietsanpham where masanpham = ?";
     String delete_HDCT_ByidHD = "delete from hoadonchitiet where idhoadon = ?";
     String delete_HD_byID = "delete from hoadon where id = ?";
-    String update_thanhtoan = "UPDATE HoaDon set NgayThanhToan = GETDATE(), TongTien = ?, IdPhuocThucThanhToan = ?, TrangThai = ? WHERE MaHD = ?";
+    String update_thanhtoan = "UPDATE HoaDon set NgayThanhToan = GETDATE(), TongTien = ?, IdPhuocThucThanhToan = ?, TrangThai = ?, IdKhuyenMai = ? WHERE MaHD = ?";
     String selectMaNV_BySDT = "select makhachhang from khachhang where sodienthoai = ?";
     String selectTenNV_BySDT = "select tenkhachhang from khachhang where sodienthoai = ?";
     String selectMaKH_ByTenKH = "select MaKhachHang FROM khachhang where TenKhachHang = ?";
@@ -789,7 +789,8 @@ public class BanHangRepository {
             ps.setObject(1, hd.getTongTien());
             ps.setObject(2, hd.getHinhThucThanhToan());
             ps.setObject(3, hd.getTrangThai());
-            ps.setObject(4, ma);
+            ps.setObject(4, hd.getIdkm());
+            ps.setObject(5, ma);
             if (ps.executeUpdate() > 0) {
                 return "Thành công";
             }

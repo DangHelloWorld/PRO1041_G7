@@ -202,7 +202,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         int rowGH = tbGH.getSelectedRow();
 
         if (rowGH < 0) {
-            JOptionPane.showMessageDialog(this, "Vui long chọn Hóa đơn và sản phẩm muốn cập nh");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn Hóa đơn và sản phẩm muốn cập nh");
         } else {
             String soLuongMoi = JOptionPane.showInputDialog("Mời nhập số lượng cần cập nhật: ");
             if (soLuongMoi != null) {
@@ -252,7 +252,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
             if (soLuong != null) {
                 if (!soLuong.matches("[0-9]+")) {
-                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng dịnh dangk");
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng!");
                 } else if (Integer.parseInt(soLuong) > Integer.parseInt(SLInTableSP)) {
                     JOptionPane.showMessageDialog(this, "Số lượng vượt quá");
                 } else {
@@ -381,9 +381,16 @@ public class BanHangJPanel extends javax.swing.JPanel {
             int tempTT = JOptionPane.showOptionDialog(this, "Bạn có chắc muốn thanh toán không ?", "Thanh toán", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (tempTT == JOptionPane.YES_OPTION) {
                 String maHD = lblMaHD.getText();
+                
                 HoaDonViewModel hd = new HoaDonViewModel();
                 hd.setNgayThanhToan(new Date(millis));
                 hd.setTongTien(Double.valueOf(thanhToan.replaceAll(",", "")));
+                if (!txtTimGG.getText().isEmpty()) {
+                    System.out.println("Vẫn vào được");
+                    int idkm = Integer.parseInt(txtTimGG.getText());
+                    hd.setIdkm(idkm);
+                }
+                
                 if (cbHTTT.getSelectedItem().equals("Tiền mặt")) {
                     hd.setHinhThucThanhToan(1);
                     if (txtTienKhachDua.getText().isEmpty()) {
@@ -857,6 +864,11 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel11.setText("Ghi chú");
 
         txtTienKhachDua.setText("0");
+        txtTienKhachDua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTienKhachDuaActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -1244,6 +1256,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
             BHRepo.addHoaDon(hd);
 //            PageLast();
             JOptionPane.showMessageDialog(this, "Tạo hóa đơn chờ thành công");
+            FindDataHDC(0, size);
         }
 
     }//GEN-LAST:event_btnTaoHDActionPerformed
@@ -1506,6 +1519,10 @@ public class BanHangJPanel extends javax.swing.JPanel {
         FindDataSP(0, size);
         txtTImKiemSP.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtTienKhachDuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienKhachDuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTienKhachDuaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
