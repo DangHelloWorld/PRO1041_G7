@@ -222,7 +222,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="bntLastPage" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="rdbntActive" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="rdbntNoActive" min="-2" max="-2" attributes="0"/>
@@ -230,6 +230,8 @@
                           <Component id="txtTimKiem" min="-2" pref="155" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="bntTimKiem" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="bntReloadTB" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -240,15 +242,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bntTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rdbntActive" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rdbntNoActive" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="bntTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdbntActive" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdbntNoActive" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="bntReloadTB" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="468" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="489" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bntLastPage" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bntXoa" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -263,10 +268,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="txtTimKiem">
+        <Component class="javax.swing.JButton" name="bntReloadTB">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntReloadTBActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtTimKiem">
         </Component>
         <Component class="javax.swing.JButton" name="bntTimKiem">
           <Properties>

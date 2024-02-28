@@ -286,6 +286,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         lbIDKhachHang = new javax.swing.JLabel();
         txtMaKhachHang = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
+        bntReloadTB = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         bntTimKiem = new javax.swing.JButton();
         bntXoa = new javax.swing.JButton();
@@ -394,9 +395,9 @@ public class KhachHangJPanel extends javax.swing.JPanel {
                 .addGap(105, 105, 105))
         );
 
-        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        bntReloadTB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimKiemActionPerformed(evt);
+                bntReloadTBActionPerformed(evt);
             }
         });
 
@@ -505,28 +506,32 @@ public class KhachHangJPanel extends javax.swing.JPanel {
                         .addComponent(bntNextPage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bntLastPage))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(rdbntActive)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rdbntNoActive)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bntTimKiem)))
+                        .addComponent(bntTimKiem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bntReloadTB, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bntTimKiem)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdbntActive)
-                    .addComponent(rdbntNoActive))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bntTimKiem)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rdbntActive)
+                        .addComponent(rdbntNoActive))
+                    .addComponent(bntReloadTB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bntLastPage)
                     .addComponent(bntXoa)
@@ -570,8 +575,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     private void bntLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLamMoiActionPerformed
         // TODO add your handling code here:
         ResetForm();
-        findWithPaginationKH(0, size);
-        updatePageInfo();
+        
     }//GEN-LAST:event_bntLamMoiActionPerformed
 
     private void bntSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaActionPerformed
@@ -683,16 +687,6 @@ public class KhachHangJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_bntTimKiemActionPerformed
 
-    private void tbKhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKhachHangMousePressed
-        // TODO add your handling code here:
-
-        this.index = tbKhachHang.rowAtPoint(evt.getPoint());
-        if (this.index >= 0) {
-            this.edit();
-        }
-
-    }//GEN-LAST:event_tbKhachHangMousePressed
-
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
         // TODO add your handling code here:
         try {
@@ -725,9 +719,21 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         lbPresentPage.setText(ht + " / " + maxPage);
     }//GEN-LAST:event_rdbntNoActiveMouseClicked
 
-    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+    private void bntReloadTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntReloadTBActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemActionPerformed
+        txtTimKiem.setText("");
+        updatePageInfo();
+        findWithPaginationKH(0, size);
+    }//GEN-LAST:event_bntReloadTBActionPerformed
+
+    private void tbKhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKhachHangMousePressed
+        // TODO add your handling code here:
+
+        this.index = tbKhachHang.rowAtPoint(evt.getPoint());
+        if (this.index >= 0) {
+            this.edit();
+        }
+    }//GEN-LAST:event_tbKhachHangMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntFirstPage;
@@ -735,6 +741,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     private javax.swing.JButton bntLastPage;
     private javax.swing.JButton bntNextPage;
     private javax.swing.JButton bntPrevPage;
+    private javax.swing.JButton bntReloadTB;
     private javax.swing.JButton bntSua;
     private javax.swing.JButton bntThem;
     private javax.swing.JButton bntTimKiem;
