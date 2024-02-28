@@ -533,7 +533,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
 
         lbl_14.setText("Màu:");
 
-        lbl_IDSPCT.setText("1");
+        lbl_IDSPCT.setText("Không Cần Nhập");
 
         lbl_12.setText("Ghi Chú:");
 
@@ -552,7 +552,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
 
         lbl_18.setText("Số Lượng:");
 
-        lbl_TenSPCT.setText("NIKEEE");
+        lbl_TenSPCT.setText("Không Cần Nhập");
 
         lbl_19.setText("VND");
 
@@ -1050,8 +1050,12 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_VeCuoiActionPerformed
 
     private void btn_XemCTSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XemCTSPActionPerformed
-        loadDataSanPhamCT(Service_SanPhamCT.selectByIdSanPham(Integer.parseInt(tbl_DanhSachSP.getValueAt(indexSP, 0).toString())));
-        TabPanel.setSelectedIndex(1);
+        if (indexSP == -1) {
+            JOptionPane.showMessageDialog(this, "Hãy Chọn Sản Phẩm");
+        } else {
+            loadDataSanPhamCT(Service_SanPhamCT.selectByIdSanPham(Integer.parseInt(tbl_DanhSachSP.getValueAt(indexSP, 0).toString())));
+            TabPanel.setSelectedIndex(1);
+        }
     }//GEN-LAST:event_btn_XemCTSPActionPerformed
 
     private void loadDataSanPham(ArrayList<SanPham> list) {
@@ -1081,7 +1085,7 @@ public class SanPhamJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Hãy Nhập Tên Sản Phẩm.");
             return null;
         }
-        if (indexSPCT != -1) {
+        if (indexSP != -1) {
             if (!txt_TenSanPham.getText().equals(tbl_DanhSachSP.getValueAt(indexSP, 1).toString())) {
                 if (Service_SanPham.selectIdByName(txt_TenSanPham.getText()) != -1) {
                     JOptionPane.showMessageDialog(this, "Tên Sản Phầm Đã Tồn Tại");

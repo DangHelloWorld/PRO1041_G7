@@ -818,7 +818,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_IDSPCT">
               <Properties>
-                <Property name="text" type="java.lang.String" value="1"/>
+                <Property name="text" type="java.lang.String" value="Kh&#xf4;ng C&#x1ea7;n Nh&#x1ead;p"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_12">
@@ -866,7 +866,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_TenSPCT">
               <Properties>
-                <Property name="text" type="java.lang.String" value="NIKEEE"/>
+                <Property name="text" type="java.lang.String" value="Kh&#xf4;ng C&#x1ea7;n Nh&#x1ead;p"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_19">
