@@ -208,10 +208,10 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 || txtSDT.equals("") || txtDiaChi.equals("") || txtEmail.equals("") || txtMatKhau.equals("")) {
             JOptionPane.showMessageDialog(this, "Hãy nhập đủ dữ liệu", "Error", 1);
             return false;
-//        } else if (!(txtEmail.getText()).matches("^ (. +) @ (\\ S +) $.")) {
-//            JOptionPane.showMessageDialog(this, "Sai định dạng Email \n VD : abc@def.com", "Error", 1);
-//            txtEmail.requestFocus();
-//            return false;
+        } else if (!(txtEmail.getText()).matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            JOptionPane.showMessageDialog(this, "Sai định dạng Email \n VD : abc@def.com", "Error", 1);
+            txtEmail.requestFocus();
+            return false;
         } else if (!(txtSDT.getText()).matches(reg)) {
             JOptionPane.showMessageDialog(this, "Hãy nhập đúng định dạng số điện thoại", "Error", 1);
             txtSDT.requestFocus();
