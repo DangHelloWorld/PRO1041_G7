@@ -12,14 +12,14 @@ public class MsgBox {
 
     public static boolean confirm(Component parent, String message) {
         int result = JOptionPane.showConfirmDialog(parent, message,
-                "Quản lý bán giày thể thao nam G4",
+                "Quản lý bán áo Unisex G7",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return result == JOptionPane.YES_OPTION;
     }
 
     public static String prompt(Component parent, String message) {
         return JOptionPane.showInputDialog(parent, message,
-                "Quản lý bán giày thể thao nam G4", JOptionPane.INFORMATION_MESSAGE);
+                "Quản lý bán áo Unisex G7", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

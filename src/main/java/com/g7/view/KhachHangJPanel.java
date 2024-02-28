@@ -690,7 +690,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     private void bntXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntXoaActionPerformed
         // TODO add your handling code here:
         try {
-
+            
             this.delete();
 
         } catch (Exception e) {
