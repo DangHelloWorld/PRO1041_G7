@@ -32,12 +32,12 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
     String SELECT_BY_ID_SQL = "select * from KhuyenMai where TenKhuyenMai = ?";
 
     public void insert(KhuyenMai entity) {
-        JdbcHelper.update(INSERT_KM, entity.getTenKhuyenMai(), entity.getMoTa(),entity.getSoLuong() ,entity.isKieuGiamGia(), entity.getMucGiamGia(), entity.getNgayBatDau(), entity.getNgayKetThuc());
+        JdbcHelper.update(INSERT_KM, entity.getTenKhuyenMai(), entity.getMoTa(), entity.getSoLuong(), entity.isKieuGiamGia(), entity.getMucGiamGia(), entity.getNgayBatDau(), entity.getNgayKetThuc());
     }
 
     @Override
     public void update(KhuyenMai entity) {
-        JdbcHelper.update(UPDATE_KM, entity.getTenKhuyenMai(), entity.getMoTa(),entity.getSoLuong(), entity.isKieuGiamGia(), entity.getMucGiamGia(), entity.getNgayBatDau(), entity.getNgayKetThuc(), entity.getIDKhuyenMai());
+        JdbcHelper.update(UPDATE_KM, entity.getTenKhuyenMai(), entity.getMoTa(), entity.getSoLuong(), entity.isKieuGiamGia(), entity.getMucGiamGia(), entity.getNgayBatDau(), entity.getNgayKetThuc(), entity.getIDKhuyenMai());
     }
 
     @Override
@@ -87,17 +87,32 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
         JdbcHelper.update(DELETE_KM, entity);
     }
 
-
-    public List<KhuyenMai> selectWithPagination(int offset, int fetchSize) {
-            String sql = "SELECT KhuyenMai.Id, KhuyenMai.TenKhuyenMai, KhuyenMai.MoTa,KhuyenMai.SoLuong, KhuyenMai.KieuGiamGia, KhuyenMai.MucGiamGia, KhuyenMai.NgayBatDau, KhuyenMai.NgayKetThuc, KhuyenMai.TrangThai FROM KhuyenMai\n"
-                + "WHERE TrangThai = 1\n"
-                + "ORDER BY KhuyenMai.Id desc\n"
-                + "OFFSET ? ROWS\n"
-                + "FETCH NEXT ? ROWS ONLY";
+    public List<KhuyenMai> SearchDate(String nbd, String nkt, int offset, int fetchSize) {
+        String sql = "SELECT \n"
+                + "    KhuyenMai.Id, \n"
+                + "    KhuyenMai.TenKhuyenMai, \n"
+                + "    KhuyenMai.MoTa,\n"
+                + "    KhuyenMai.SoLuong, \n"
+                + "    KhuyenMai.KieuGiamGia, \n"
+                + "    KhuyenMai.MucGiamGia, \n"
+                + "    KhuyenMai.NgayBatDau, \n"
+                + "    KhuyenMai.NgayKetThuc, \n"
+                + "    KhuyenMai.TrangThai \n"
+                + "FROM \n"
+                + "    KhuyenMai\n"
+                + "WHERE \n"
+                + "    TrangThai = 1\n"
+                + "    AND KhuyenMai.NgayBatDau BETWEEN ? AND ? \n"
+                + "ORDER BY \n"
+                + "    KhuyenMai.Id, KhuyenMai.NgayBatDau \n"
+                + "OFFSET \n"
+                + "    ? ROWS\n"
+                + "FETCH NEXT \n"
+                + "    ? ROWS ONLY;";
         List<KhuyenMai> list = new ArrayList<>();
         try {
-            ResultSet rs = JdbcHelper.query(sql, offset, fetchSize);
-            while (rs.next()) {                
+            ResultSet rs = JdbcHelper.query(sql, nbd, nkt, offset, fetchSize);
+            while (rs.next()) {
                 KhuyenMai km = new KhuyenMai();
                 km.setIDKhuyenMai(rs.getInt(1));
                 km.setTenKhuyenMai(rs.getString(2));
@@ -108,14 +123,42 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
                 km.setNgayBatDau(rs.getDate(7));
                 km.setNgayKetThuc(rs.getDate(8));
                 km.setTrangThai(rs.getInt(9));
-                list.add(km);   
+                list.add(km);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return list;
     }
-    
+
+    public List<KhuyenMai> selectWithPagination(int offset, int fetchSize) {
+        String sql = "SELECT KhuyenMai.Id, KhuyenMai.TenKhuyenMai, KhuyenMai.MoTa,KhuyenMai.SoLuong, KhuyenMai.KieuGiamGia, KhuyenMai.MucGiamGia, KhuyenMai.NgayBatDau, KhuyenMai.NgayKetThuc, KhuyenMai.TrangThai FROM KhuyenMai\n"
+                + "WHERE TrangThai = 1\n"
+                + "ORDER BY KhuyenMai.Id desc\n"
+                + "OFFSET ? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY";
+        List<KhuyenMai> list = new ArrayList<>();
+        try {
+            ResultSet rs = JdbcHelper.query(sql, offset, fetchSize);
+            while (rs.next()) {
+                KhuyenMai km = new KhuyenMai();
+                km.setIDKhuyenMai(rs.getInt(1));
+                km.setTenKhuyenMai(rs.getString(2));
+                km.setMoTa(rs.getString(3));
+                km.setSoLuong(rs.getInt(4));
+                km.setKieuGiamGia(rs.getBoolean(5));
+                km.setMucGiamGia(rs.getDouble(6));
+                km.setNgayBatDau(rs.getDate(7));
+                km.setNgayKetThuc(rs.getDate(8));
+                km.setTrangThai(rs.getInt(9));
+                list.add(km);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
     public List<KhuyenMai> selectWithPaginationNoActive(int offset, int fetchSize) {
         String sql = "SELECT KhuyenMai.Id, KhuyenMai.TenKhuyenMai, KhuyenMai.MoTa,KhuyenMai.SoLuong, KhuyenMai.KieuGiamGia, KhuyenMai.MucGiamGia, KhuyenMai.NgayBatDau, KhuyenMai.NgayKetThuc, KhuyenMai.TrangThai FROM KhuyenMai\n"
                 + "WHERE TrangThai = 0\n"
@@ -125,7 +168,7 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
         List<KhuyenMai> list = new ArrayList<>();
         try {
             ResultSet rs = JdbcHelper.query(sql, offset, fetchSize);
-            while (rs.next()) {                
+            while (rs.next()) {
                 KhuyenMai km = new KhuyenMai();
                 km.setIDKhuyenMai(rs.getInt(1));
                 km.setTenKhuyenMai(rs.getString(2));
@@ -136,15 +179,14 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
                 km.setNgayBatDau(rs.getDate(7));
                 km.setNgayKetThuc(rs.getDate(8));
                 km.setTrangThai(rs.getInt(9));
-                list.add(km);   
+                list.add(km);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return list;
     }
-    
-    
+
     public int getTotalItems() {
         String sqlCount = "select count(*) from dbo.KhuyenMai where KhuyenMai.Trangthai = 1";
 
@@ -162,11 +204,10 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
 
         return totalItems;
     }
-    
-    
-    public int getNoActiveTotal(){
+
+    public int getNoActiveTotal() {
         String sql = "SELECT COUNT(*) FROM KhuyenMai WHERE TrangThai = 0;";
-        
+
         int totalItems = 0;
 
         try {
@@ -181,18 +222,18 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
 
         return totalItems;
     }
-    
-    public List<KhuyenMai> SearchTheoTen(String ten , int offset, int fetchSize){
+
+    public List<KhuyenMai> SearchTheoTen(String ten, int offset, int fetchSize) {
         String sql = "SELECT KhuyenMai.Id, KhuyenMai.TenKhuyenMai, KhuyenMai.MoTa,KhuyenMai.SoLuong, KhuyenMai.KieuGiamGia, KhuyenMai.MucGiamGia, KhuyenMai.NgayBatDau, KhuyenMai.NgayKetThuc, KhuyenMai.TrangThai FROM KhuyenMai\n"
                 + "WHERE TrangThai = 1 AND KhuyenMai.TenKhuyenMai LIKE ?\n"
-                + "ORDER BY KhuyenMai.Id\n"
+                + "ORDER BY KhuyenMai.Id desc\n"
                 + "OFFSET ? ROWS\n"
                 + "FETCH NEXT ? ROWS ONLY";
         ten = "%" + ten + "%";
         List<KhuyenMai> listSearch = new ArrayList<>();
         try {
-           ResultSet rs = JdbcHelper.query(sql, ten, offset, fetchSize);
-            while (rs.next()) {                
+            ResultSet rs = JdbcHelper.query(sql, ten, offset, fetchSize);
+            while (rs.next()) {
                 KhuyenMai km = new KhuyenMai();
                 km.setIDKhuyenMai(rs.getInt(1));
                 km.setTenKhuyenMai(rs.getString(2));
@@ -203,15 +244,11 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
                 km.setNgayBatDau(rs.getDate(7));
                 km.setNgayKetThuc(rs.getDate(8));
                 km.setTrangThai(rs.getInt(9));
-                listSearch.add(km); 
+                listSearch.add(km);
             }
         } catch (Exception e) {
         }
         return listSearch;
     }
-    
-    
-    
-    
 
 }
