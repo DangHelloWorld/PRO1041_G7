@@ -22,7 +22,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
     private DefaultTableModel defaultTableModelKH = new DefaultTableModel();
 
     private int ht = 1;
-    private int size = 100;
+    private int size = 25;
     int index = 0;
 
     public NhanVienJPanel() {
