@@ -24,7 +24,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     DefaultTableModel model = new DefaultTableModel();
     KhuyenMai km = new KhuyenMai();
     KhuyenMaiRepository kmr = new KhuyenMaiRepository();
-    DecimalFormat fomat = new DecimalFormat("###,###,###");
+    DecimalFormat fomat = new DecimalFormat("#########");
     SimpleDateFormat ft = new SimpleDateFormat("yyyy/MM/dd");
 
     private int ht = 1;
@@ -484,14 +484,25 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if (Validate()) {
-            this.update();
+        int row = tblKhuyenMai.getSelectedRow();
+        if (row < 0) {
+            MsgBox.alert(this, "Vui lòng chọn khuyến mãi!");
+        } else {
+            if (Validate()) {
+                this.update();
+            }
         }
+
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        this.delete();
+        int row = tblKhuyenMai.getSelectedRow();
+        if (row < 0) {
+            MsgBox.alert(this, "Vui lòng chọn khuyến mãi!");
+        } else {
+            this.delete();
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtSearchMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseReleased
@@ -720,7 +731,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             km.setKieuGiamGia(false);
         }
         km.setMoTa(txtMoTa.getText());
-        km.setMucGiamGia(Double.valueOf(txtMucGG.getText()));
+        km.setMucGiamGia(Double.valueOf(txtMucGG.getText().replace(",", "")));
         km.setNgayBatDau(txtNgayBatDau.getDate());
         km.setNgayKetThuc(txtNgayKetThuc.getDate());
         km.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
@@ -780,22 +791,45 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
         km.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
         String tenkm = txtTenKM.getText();
         int sl = kmr.checkTrungTen(tenkm);
-        if (sl != 0) {
-            MsgBox.alert(this, "trùng");
-        } else {
-            try {
-                int chon = JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi", "Bạn có muốn sửa khuyến mãi này không?", JOptionPane.YES_NO_OPTION);
-                if (chon == JOptionPane.YES_OPTION) {
-                    kmr.update(km);
-                    findWithPaginationKH(0, size);
-                    this.clearForm();
-                    JOptionPane.showMessageDialog(this, "sửa thành công");
+        int sl2 = sl + 1;
+        int index = tblKhuyenMai.getSelectedRow();
+        if (!tblKhuyenMai.getValueAt(index, 2).toString().equals(txtTenKM.getText())) {
+            if (sl == 1) {
+            if (sl2 == 2) {
+                JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại, vui lòng nhập lại!");
+
+            } else {
+                try {
+                    int chon = JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi", "Bạn có muốn sửa khuyến mãi này không?", JOptionPane.YES_NO_OPTION);
+                    if (chon == JOptionPane.YES_OPTION) {
+                        kmr.update(km);
+                        findWithPaginationKH(0, size);
+                        this.clearForm();
+                        JOptionPane.showMessageDialog(this, "sửa thành công");
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "sửa không thành công");
+
                 }
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "sửa không thành công");
-
             }
+        }
+        
+//        } else {
+//            try {
+//                int chon = JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi", "Bạn có muốn sửa khuyến mãi này không?", JOptionPane.YES_NO_OPTION);
+//                if (chon == JOptionPane.YES_OPTION) {
+//                    kmr.update(km);
+//                    findWithPaginationKH(0, size);
+//                    this.clearForm();
+//                    JOptionPane.showMessageDialog(this, "sửa thành công");
+//                }
+//
+//            } catch (Exception e) {
+//                JOptionPane.showMessageDialog(this, "sửa không thành công");
+//
+//            }
         }
 
     }
@@ -806,6 +840,7 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             if (chon == JOptionPane.YES_OPTION) {
                 kmr.update21(lblID.getText());
                 findWithPaginationKH(0, size);
+                this.clearForm();
                 JOptionPane.showMessageDialog(this, "xóa thành công");
             }
         } catch (Exception e) {

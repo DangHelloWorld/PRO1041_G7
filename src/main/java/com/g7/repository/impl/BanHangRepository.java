@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -159,10 +160,11 @@ public class BanHangRepository {
             + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
             + "				  where dbo.HoaDon.TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
 
-    public int totalHDSPTheoNgay(String nbd, String NKT) {
+    public int totalHDSPTheoNgay(Date nbd, Date NKT) {
         int sp = 0;
         try {
-            ResultSet rs = JdbcHelper.query(select_totalHDSP);
+            
+            ResultSet rs = JdbcHelper.query(select_totalHDSP, nbd, NKT);
 
             if (rs.next()) {
                 sp = rs.getInt(1);
