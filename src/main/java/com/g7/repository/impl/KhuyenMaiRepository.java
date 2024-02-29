@@ -250,5 +250,20 @@ public class KhuyenMaiRepository extends G7Repository<KhuyenMai, Integer> {
         }
         return listSearch;
     }
+    
+    String sql = "SELECT COUNT(*) FROM KhuyenMai WHERE TenKhuyenMai = ?";
+    public int checkTrungTen(String ten) {
+        int sl = 0;
+        try {
+            ResultSet rs = JdbcHelper.query(sql, ten);
+
+            if (rs.next()) {
+                sl = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sl;
+    }
 
 }

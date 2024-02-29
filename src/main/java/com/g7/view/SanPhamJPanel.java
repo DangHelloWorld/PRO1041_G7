@@ -971,14 +971,17 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_DanhSachSPMouseClicked
 
     private void btn_ThemSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemSpActionPerformed
+
         SanPham sp = getInputFromSP(false);
         if (sp != null) {
-            if (Service_SanPham.create(sp) == 0) {
-                JOptionPane.showMessageDialog(this, "Thành Công.");
-                loadDataSanPham(Service_SanPham.selectOffset(indexOffsetSP));
-                lbl_TrangSo.setText(indexOffsetSP + 1 + "/" + Service_SanPham.soDongData());
-            } else {
-                JOptionPane.showMessageDialog(this, "Thất Bại");
+            if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Thêm Không") == 0) {
+                if (Service_SanPham.create(sp) == 0) {
+                    JOptionPane.showMessageDialog(this, "Thành Công.");
+                    loadDataSanPham(Service_SanPham.selectOffset(indexOffsetSP));
+                    lbl_TrangSo.setText(indexOffsetSP + 1 + "/" + Service_SanPham.soDongData());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thất Bại");
+                }
             }
         }
         indexSP = -1;
@@ -987,13 +990,15 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     private void btn_SuaSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SuaSpActionPerformed
         if (indexSP != -1) {
             SanPham sp = getInputFromSP(true);
-            if (sp != null) {
-                if (Service_SanPham.update(sp) == 0) {
-                    JOptionPane.showMessageDialog(this, "Thành Công.");
-                    loadDataSanPham(Service_SanPham.selectOffset(indexOffsetSP));
-                    indexSP = -1;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thất Bại");
+            if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Sửa Không") == 0) {
+                if (sp != null) {
+                    if (Service_SanPham.update(sp) == 0) {
+                        JOptionPane.showMessageDialog(this, "Thành Công.");
+                        loadDataSanPham(Service_SanPham.selectOffset(indexOffsetSP));
+                        indexSP = -1;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thất Bại");
+                    }
                 }
             }
         } else {
@@ -1003,13 +1008,15 @@ public class SanPhamJPanel extends javax.swing.JPanel {
 
     private void btn_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaActionPerformed
         if (indexSP != -1) {
-            if (Service_SanPham.remove(Integer.parseInt(tbl_DanhSachSP.getValueAt(indexSP, 0).toString())) == 0) {
-                JOptionPane.showMessageDialog(this, "Thành Công.");
-                lbl_TrangSo.setText(indexOffsetSP + 1 + "/" + Service_SanPham.soDongData());
-                loadDataSanPham(Service_SanPham.selectOffset(indexOffsetSP));
-                indexSP = -1;
-            } else {
-                JOptionPane.showMessageDialog(this, "Thất Bại");
+            if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không") == 0) {
+                if (Service_SanPham.remove(Integer.parseInt(tbl_DanhSachSP.getValueAt(indexSP, 0).toString())) == 0) {
+                    JOptionPane.showMessageDialog(this, "Thành Công.");
+                    lbl_TrangSo.setText(indexOffsetSP + 1 + "/" + Service_SanPham.soDongData());
+                    loadDataSanPham(Service_SanPham.selectOffset(indexOffsetSP));
+                    indexSP = -1;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thất Bại");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Hãy Chọn Sản Phẩm.");
@@ -1144,14 +1151,17 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     //====================================SẢN PHẨM CHI TIẾT===================================================
 
     private void btn_ThemCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemCTActionPerformed
+
         SanPhamChiTiet sp = getInputFromSPCT(false);
         if (sp != null) {
-            if (Service_SanPhamCT.create(sp) == 0) {
-                JOptionPane.showMessageDialog(this, "Thành Công");
-                loadDataSanPhamCT(Service_SanPhamCT.selectOffset(indexOffsetSPCT));
-                lbl_TrangCTSo.setText(indexOffsetSPCT + 1 + "/" + Service_SanPhamCT.soDongData());
-            } else {
-                JOptionPane.showMessageDialog(this, "Thất Bại");
+            if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Thêm Không") == 0) {
+                if (Service_SanPhamCT.create(sp) == 0) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadDataSanPhamCT(Service_SanPhamCT.selectOffset(indexOffsetSPCT));
+                    lbl_TrangCTSo.setText(indexOffsetSPCT + 1 + "/" + Service_SanPhamCT.soDongData());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thất Bại");
+                }
             }
         }
     }//GEN-LAST:event_btn_ThemCTActionPerformed
@@ -1159,13 +1169,15 @@ public class SanPhamJPanel extends javax.swing.JPanel {
     private void btn_SuaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SuaCTActionPerformed
         if (indexSPCT != -1) {
             SanPhamChiTiet sp = getInputFromSPCT(true);
-            if (sp != null) {
-                if (Service_SanPhamCT.update(sp) == 0) {
-                    JOptionPane.showMessageDialog(this, "Thành Công");
-                    loadDataSanPhamCT(Service_SanPhamCT.selectOffset(indexOffsetSPCT));
-                    indexSPCT = -1;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Thất Bại");
+            if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Sửa Không") == 0) {
+                if (sp != null) {
+                    if (Service_SanPhamCT.update(sp) == 0) {
+                        JOptionPane.showMessageDialog(this, "Thành Công");
+                        loadDataSanPhamCT(Service_SanPhamCT.selectOffset(indexOffsetSPCT));
+                        indexSPCT = -1;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thất Bại");
+                    }
                 }
             }
         } else {
@@ -1175,13 +1187,15 @@ public class SanPhamJPanel extends javax.swing.JPanel {
 
     private void btn_XoaCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaCTActionPerformed
         if (indexSPCT != -1) {
-            if (Service_SanPhamCT.remove(Integer.parseInt(tbl_DanhSachSPCT.getValueAt(indexSPCT, 0).toString())) == 0) {
-                JOptionPane.showMessageDialog(this, "Thành Công");
-                loadDataSanPhamCT(Service_SanPhamCT.selectOffset(indexOffsetSPCT));
-                lbl_TrangCTSo.setText(indexOffsetSPCT + 1 + "/" + Service_SanPhamCT.soDongData());
-                indexSPCT = -1;
-            } else {
-                JOptionPane.showMessageDialog(this, "Thất Bại");
+            if (JOptionPane.showConfirmDialog(this, "Bạn Có Muốn Xóa Không") == 0) {
+                if (Service_SanPhamCT.remove(Integer.parseInt(tbl_DanhSachSPCT.getValueAt(indexSPCT, 0).toString())) == 0) {
+                    JOptionPane.showMessageDialog(this, "Thành Công");
+                    loadDataSanPhamCT(Service_SanPhamCT.selectOffset(indexOffsetSPCT));
+                    lbl_TrangCTSo.setText(indexOffsetSPCT + 1 + "/" + Service_SanPhamCT.soDongData());
+                    indexSPCT = -1;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thất Bại");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Hãy Chọn Chi tiết Sản Phẩm");
