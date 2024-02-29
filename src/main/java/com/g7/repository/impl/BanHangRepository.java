@@ -164,7 +164,7 @@ public class BanHangRepository {
         int sp = 0;
         try {
             
-            ResultSet rs = JdbcHelper.query(select_totalHDSP, nbd, NKT);
+            ResultSet rs = JdbcHelper.query(select_totalHDSP_TheoNgay, nbd, NKT);
 
             if (rs.next()) {
                 sp = rs.getInt(1);
@@ -175,10 +175,10 @@ public class BanHangRepository {
         return sp;
     }
 
-    public int totalHDTheoNgay() {
+    public int totalHDTheoNgay(Date nbd, Date nkt) {
         int hd = 0;
         try {
-            ResultSet rs = JdbcHelper.query(select_TongHD);
+            ResultSet rs = JdbcHelper.query(select_TongHD_TheoNgay, nbd, nkt);
 
             if (rs.next()) {
                 hd = rs.getInt(1);
@@ -189,10 +189,10 @@ public class BanHangRepository {
         return hd;
     }
 
-    public int selectsoKhachHangTKTheoNgay() {
+    public int selectsoKhachHangTKTheoNgay(Date nbd, Date nkt) {
         int KH = 0;
         try {
-            ResultSet rs = JdbcHelper.query(select_soKhachHangTK);
+            ResultSet rs = JdbcHelper.query(select_soKhachHangTK_TheoNgay, nbd, nkt);
 
             if (rs.next()) {
                 KH = rs.getInt(1);
@@ -203,10 +203,10 @@ public class BanHangRepository {
         return KH;
     }
 
-    public int selectTTThongKeTheoNgay() {
+    public int selectTTThongKeTheoNgay(Date nbd, Date nkt) {
         int TTThongKe = 0;
         try {
-            ResultSet rs = JdbcHelper.query(select_TTThongkke);
+            ResultSet rs = JdbcHelper.query(select_TTThongkke_TheoNgay, nbd, nkt);
 
             if (rs.next()) {
                 TTThongKe = rs.getInt(1);
