@@ -89,8 +89,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
             });
         }
     }
-    
-      public void timKiemSP(String ten, int ht, int size) {
+
+    public void timKiemSP(String ten, int ht, int size) {
         List<CTSPBanHangViewModel> list = BHRepo.timkiemsp(ten, ht, size);
         defaultTableModelSP.setRowCount(0);
         defaultTableModelSP = (DefaultTableModel) tbSP.getModel();
@@ -100,7 +100,6 @@ public class BanHangJPanel extends javax.swing.JPanel {
             });
         }
     }
-
 
     public void FindDataGH(int id) {
         List<GioHangViewModel> list = BHRepo.selectWithPaginationGH(id);
@@ -244,58 +243,64 @@ public class BanHangJPanel extends javax.swing.JPanel {
         int row = tbSP.getSelectedRow();
 
         CTSPBanHangViewModel sp = new CTSPBanHangViewModel();
-        String SLInTableSP = tbSP.getValueAt(row, 7).toString();
+        
         if (rowHD < 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn muốn thêm sản phẩm");
         } else {
-            String soLuong = JOptionPane.showInputDialog("Mời bạn nhập số lượng: ");
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm muốn thêm");
+            } else {
+                String SLInTableSP = tbSP.getValueAt(row, 7).toString();
+                String soLuong = JOptionPane.showInputDialog("Mời bạn nhập số lượng: ");
 
-            if (soLuong != null) {
-                if (!soLuong.matches("[0-9]+")) {
-                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng!");
-                } else if (Integer.parseInt(soLuong) > Integer.parseInt(SLInTableSP)) {
-                    JOptionPane.showMessageDialog(this, "Số lượng vượt quá");
-                } else {
-                    String masp = tbSP.getValueAt(row, 1).toString();
-                    String tenSP1 = Objects.toString(tbSP.getValueAt(row, 2), "");
-                    double donGia = Double.parseDouble(tbSP.getValueAt(row, 8).toString());
-                    GioHangViewModel gh = new GioHangViewModel();
-                    gh.setSoluong(Integer.parseInt(soLuong));
-                    gh.setMasp(masp);
-                    gh.setTensp(tenSP1);
-                    gh.setDongia(donGia);
+                if (soLuong != null) {
+                    if (!soLuong.matches("[0-9]+")) {
+                        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng!");
+                    } else if (Integer.parseInt(soLuong) > Integer.parseInt(SLInTableSP)) {
+                        JOptionPane.showMessageDialog(this, "Số lượng vượt quá");
+                    } else {
+                        String masp = tbSP.getValueAt(row, 1).toString();
+                        String tenSP1 = Objects.toString(tbSP.getValueAt(row, 2), "");
+                        double donGia = Double.parseDouble(tbSP.getValueAt(row, 8).toString());
+                        GioHangViewModel gh = new GioHangViewModel();
+                        gh.setSoluong(Integer.parseInt(soLuong));
+                        gh.setMasp(masp);
+                        gh.setTensp(tenSP1);
+                        gh.setDongia(donGia);
 
-                    boolean trung = false;
-                    for (GioHangViewModel x : listGH) {
-                        if (x.getMasp() != null && x.getMasp().contains(masp)) {
-                            trung = true;
+                        boolean trung = false;
+                        for (GioHangViewModel x : listGH) {
+                            if (x.getMasp() != null && x.getMasp().contains(masp)) {
+                                trung = true;
+                            }
+                        }
+                        if (trung) {
+                            JOptionPane.showMessageDialog(this, "Sản phẩm đã có trong giỏ hàng");
+
+                        } else {
+                            listGH.add(gh);
+                            int TSL = Integer.parseInt(tbSP.getValueAt(row, 7).toString());
+                            sp.setSoluong(TSL - Integer.parseInt(soLuong));
+
+                            int idHD = BHRepo.selectByMa(tbHDC.getValueAt(rowHD, 0).toString());
+                            int idSP = Integer.parseInt(tbSP.getValueAt(row, 0).toString());
+                            int soLuong1 = Integer.parseInt(soLuong);
+                            double dongia1 = Double.parseDouble(tbSP.getValueAt(row, 8).toString());
+
+                            HoaDonChiTiet hdct = new HoaDonChiTiet(idHD, idSP, soLuong1, donGia);
+                            JOptionPane.showMessageDialog(this, BHRepo.addHDCT(hdct));
+
+                            SanPhamChiTiet sp1 = new SanPhamChiTiet(sp.getSoluong());
+                            BHRepo.updateSoLuong(sp1, idSP);
+
+                            FindDataGH(idHD);
+
                         }
                     }
-                    if (trung) {
-                        JOptionPane.showMessageDialog(this, "Sản phẩm đã có trong giỏ hàng");
-
-                    } else {
-                        listGH.add(gh);
-                        int TSL = Integer.parseInt(tbSP.getValueAt(row, 7).toString());
-                        sp.setSoluong(TSL - Integer.parseInt(soLuong));
-
-                        int idHD = BHRepo.selectByMa(tbHDC.getValueAt(rowHD, 0).toString());
-                        int idSP = Integer.parseInt(tbSP.getValueAt(row, 0).toString());
-                        int soLuong1 = Integer.parseInt(soLuong);
-                        double dongia1 = Double.parseDouble(tbSP.getValueAt(row, 8).toString());
-
-                        HoaDonChiTiet hdct = new HoaDonChiTiet(idHD, idSP, soLuong1, donGia);
-                        JOptionPane.showMessageDialog(this, BHRepo.addHDCT(hdct));
-
-                        SanPhamChiTiet sp1 = new SanPhamChiTiet(sp.getSoluong());
-                        BHRepo.updateSoLuong(sp1, idSP);
-
-                        FindDataGH(idHD);
-
-                    }
                 }
-            }
+            }//an
         }
+
     }
 
     private void huyhoadon() {
@@ -352,8 +357,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         String TongTien1 = lblTongTien.getText();
 
         String tienKhachDua1 = fomat.format(Double.valueOf(txtTienKhachDua.getText()));
-        
-        
+
         String tienThua = lblTT.getText();
         System.out.println(tienThua);
 
@@ -381,7 +385,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
             int tempTT = JOptionPane.showOptionDialog(this, "Bạn có chắc muốn thanh toán không ?", "Thanh toán", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (tempTT == JOptionPane.YES_OPTION) {
                 String maHD = lblMaHD.getText();
-                
+
                 HoaDonViewModel hd = new HoaDonViewModel();
                 hd.setNgayThanhToan(new Date(millis));
                 hd.setTongTien(Double.valueOf(thanhToan.replaceAll(",", "")));
@@ -390,7 +394,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     int idkm = Integer.parseInt(txtTimGG.getText());
                     hd.setIdkm(idkm);
                 }
-                
+
                 if (cbHTTT.getSelectedItem().equals("Tiền mặt")) {
                     hd.setHinhThucThanhToan(1);
                     if (txtTienKhachDua.getText().isEmpty()) {
@@ -443,7 +447,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                         table.addCell(new PdfPCell(new Phrase(String.valueOf(x.getDongia()), contentFont)));
                     }
                     document.add(table);
-                    
+
                     document.add(new Paragraph("---------------------------------------------------", contentFont));
                     document.add(new Paragraph("Tong tien:              " + TongTien1, contentFont));
                     document.add(new Paragraph("khuyen mai:          " + mucGiam, contentFont));
@@ -1380,7 +1384,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         huyhoadon();
         FindDataSP(ht, size);
-         txtTienKhachDua.setText("0");
+        txtTienKhachDua.setText("0");
         lblTT.setText("0");
         lblThanhToan.setText("0");
         lblMucGiam.setText("0");
@@ -1508,7 +1512,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTimGGActionPerformed
 
     private void btnTImKiemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTImKiemSPActionPerformed
-          String ten = txtTImKiemSP.getText().trim();
+        String ten = txtTImKiemSP.getText().trim();
         try {
             timKiemSP(ten, 0, 400);
         } catch (Exception e) {
