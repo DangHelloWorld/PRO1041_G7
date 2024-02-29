@@ -41,9 +41,10 @@ public class ThuocTinhRepository implements com.g7.repository.ThuocTinhRepositor
         try {
             ArrayList list = new ArrayList();
             connect = JdbcHelper.openDbConnection();
-            preparedStatement = connect.prepareStatement("select id  from " + tenBang + " where " + this.tenThuocTinh + "='" + tenThuocTinh + "'");
+            preparedStatement = connect.prepareStatement("select id  from " + tenBang + " where " + this.tenThuocTinh + "=N'" + tenThuocTinh + "'");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
+                System.out.println("Id "+tenBang+" là: "+resultSet.getInt(1));
                 return resultSet.getInt(1);
             }
             return -1;
