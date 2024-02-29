@@ -4,9 +4,15 @@
  */
 package com.g7.view;
 
+import com.g7.entity.KhuyenMai;
 import com.g7.repository.impl.BanHangRepository;
+import com.g7.viewmodel.KhuyenMaiViewModel;
+import com.g7.viewmodel.NhanVienViewModel;
+import com.g7.viewmodel.SanPhamViewModel;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +25,10 @@ public class ThongKeJPanel extends javax.swing.JPanel {
      */
     private BanHangRepository BHRepo = new BanHangRepository();
     DecimalFormat fomat = new DecimalFormat("###,###,###");
+    private DefaultTableModel defaultTableModel = new DefaultTableModel();
+        private DefaultTableModel defaultTableModel2 = new DefaultTableModel();
+    private DefaultTableModel defaultTableModel3 = new DefaultTableModel();
+
 
     public ThongKeJPanel() {
         initComponents();
@@ -35,6 +45,41 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         lblLuongKhachHang.setText(String.valueOf(kh));
         lblLoiNhuan.setText(String.valueOf(fomat.format(loiNhuan)) + " VNĐ");
         lblDoanhThu.setText(String.valueOf(fomat.format(doanhThu)) + " VNĐ");
+        loadTBKMTOP();
+        loadTBNVTOP();
+        loadTBSPTOP();
+    }
+    
+    public void loadTBKMTOP(){
+        List<KhuyenMaiViewModel> listKM = BHRepo.selectTopKM();
+        defaultTableModel.setRowCount(0);
+        defaultTableModel = (DefaultTableModel) tbKMTOP.getModel();
+        for (KhuyenMaiViewModel x : listKM) {
+             defaultTableModel.addRow(new Object[]{
+                x.getId(), x.getTen(), x.getSoluong(), x.getSoluongSD(), x.KieuKM(x.isKieu()), fomat.format(x.getMucGiamGia()), x.trangThai(x.getTrangThai())
+            });
+        }
+    }
+    public void loadTBNVTOP(){
+        List<NhanVienViewModel> listKM = BHRepo.selectTopNV();
+        defaultTableModel2.setRowCount(0);
+        defaultTableModel2 = (DefaultTableModel) tbNVTOp.getModel();
+        for (NhanVienViewModel x : listKM) {
+             defaultTableModel2.addRow(new Object[]{
+                x.getId(), x.getTen(), x.getSolan(), x.tt(x.getTrangthai())
+            });
+        }
+    }
+    
+     public void loadTBSPTOP(){
+        List<SanPhamViewModel> listKM = BHRepo.selectTopSP();
+        defaultTableModel3.setRowCount(0);
+        defaultTableModel3 = (DefaultTableModel) tbTopSP.getModel();
+        for (SanPhamViewModel x : listKM) {
+             defaultTableModel3.addRow(new Object[]{
+                x.getId(), x.getTensp(), x.getSoluong(), fomat.format(x.getTongTien()), x.tt(x.getTrangthai())
+            });
+        }
     }
     
 
@@ -74,8 +119,14 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbKMTOP = new javax.swing.JTable();
         jTabbedPane3 = new javax.swing.JTabbedPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbTopSP = new javax.swing.JTable();
         jTabbedPane4 = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbNVTOp = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -275,9 +326,7 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                             .addComponent(txtTU, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(120, 120, 120))
+                            .addComponent(jLabel8)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtDEN, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -327,8 +376,46 @@ public class ThongKeJPanel extends javax.swing.JPanel {
                 .addGap(39, 39, 39))
         );
 
+        tbKMTOP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Tên Khuyến Mãi", "Số lượng", "Số lần sử dụng", "Kiểu giảm giá", "Mức giảm giá", "Trạng thái"
+            }
+        ));
+        jScrollPane1.setViewportView(tbKMTOP);
+
+        jTabbedPane2.addTab("Được sử dụng nhiều nhất", jScrollPane1);
+
         jTabbedPane1.addTab("Khuyến mãi", jTabbedPane2);
+
+        tbTopSP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID sản phẩm", "Tên Sản phẩm", "Số lượng đã bán", "Tổng doanh thu", "Trạng thái"
+            }
+        ));
+        jScrollPane3.setViewportView(tbTopSP);
+
+        jTabbedPane3.addTab("Sản phẩm bán chạy nhất", jScrollPane3);
+
         jTabbedPane1.addTab("Sản phẩm", jTabbedPane3);
+
+        tbNVTOp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Tên Nhân Viên", "Số lần tham gia thanh toán", "Trạng thái"
+            }
+        ));
+        jScrollPane2.setViewportView(tbNVTOp);
+
+        jTabbedPane4.addTab("Nhân viên tham gia thanh toán nhiều nhất", jScrollPane2);
+
         jTabbedPane1.addTab("Nhân viên", jTabbedPane4);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -419,6 +506,9 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -428,6 +518,9 @@ public class ThongKeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblLoiNhuan;
     private javax.swing.JLabel lblLuongKhachHang;
     private javax.swing.JLabel lblSPBR;
+    private javax.swing.JTable tbKMTOP;
+    private javax.swing.JTable tbNVTOp;
+    private javax.swing.JTable tbTopSP;
     private com.toedter.calendar.JDateChooser txtDEN;
     private com.toedter.calendar.JDateChooser txtTU;
     // End of variables declaration//GEN-END:variables

@@ -12,6 +12,9 @@ import com.g7.utils.JdbcHelper;
 import com.g7.viewmodel.CTSPBanHangViewModel;
 import com.g7.viewmodel.GioHangViewModel;
 import com.g7.viewmodel.HoaDonViewModel;
+import com.g7.viewmodel.KhuyenMaiViewModel;
+import com.g7.viewmodel.NhanVienViewModel;
+import com.g7.viewmodel.SanPhamViewModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -160,10 +163,97 @@ public class BanHangRepository {
             + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
             + "				  where dbo.HoaDon.TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
 
+    String Select_TopKM = "SELECT km.Id, km.TenKhuyenMai, km.SoLuong, COUNT(km.Id) AS so_lan_su_dung, km.KieuGiamGia, km.MucGiamGia, km.TrangThai\n"
+            + "FROM dbo.HoaDon\n"
+            + "INNER JOIN dbo.KhuyenMai AS km ON dbo.HoaDon.IdKhuyenMai = km.Id\n"
+            + "GROUP BY km.Id, km.TenKhuyenMai, km.SoLuong, km.KieuGiamGia, km.MucGiamGia, km.TrangThai\n"
+            + "ORDER BY COUNT(km.Id) DESC;";
+
+    String select_TopNV = "SELECT km.Id, km.TenNhanVien, COUNT(km.Id) AS so_lan_su_dung, km.TrangThai\n"
+            + "FROM dbo.HoaDon\n"
+            + "INNER JOIN dbo.NhanVien AS km ON dbo.HoaDon.IdNhanVien = km.Id\n"
+            + "GROUP BY km.Id, km.TenNhanVien, km.TrangThai\n"
+            + "ORDER BY COUNT(km.Id) DESC";
+
+    String select_TopSPBanChay = "select sp.Id, sp1.TenSanPham, COUNT(sp.Id) as solandcban, SUM(hd.TongTien), sp.TrangThai from HoaDonChiTiet as hdct inner join\n"
+            + "ChiTietSanPham as sp on sp.Id =  hdct.IdCTSanPham inner join\n"
+            + "SanPham as sp1 on sp1.Id = sp.IdSanPham inner join\n"
+            + "HoaDon as hd on hd.Id = hdct.IdHoaDon\n"
+            + "where hd.TrangThai = 3\n"
+            + "  GROUP BY sp.Id, sp1.TenSanPham, sp.TrangThai\n"
+            + "ORDER BY COUNT(sp.Id) DESC;";
+
+    public List<SanPhamViewModel> selectTopSP() {
+
+        String sql = select_TopSPBanChay;
+
+        List<SanPhamViewModel> list = new ArrayList<>();
+        try {
+            ResultSet rs = JdbcHelper.query(sql);
+            while (rs.next()) {
+                SanPhamViewModel entity = new SanPhamViewModel();
+                entity.setId(rs.getInt(1));
+                entity.setTensp(rs.getString(2));
+                entity.setSoluong(rs.getInt(3));
+                entity.setTongTien(Double.valueOf(rs.getDouble(4)));
+                entity.setTrangthai(rs.getInt(5));
+                list.add(entity);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public List<NhanVienViewModel> selectTopNV() {
+
+        String sql = select_TopNV;
+
+        List<NhanVienViewModel> list = new ArrayList<>();
+        try {
+            ResultSet rs = JdbcHelper.query(sql);
+            while (rs.next()) {
+                NhanVienViewModel entity = new NhanVienViewModel();
+                entity.setId(rs.getInt(1));
+                entity.setTen(rs.getString(2));
+                entity.setSolan(rs.getInt(3));
+                entity.setTrangthai(rs.getInt(4));
+                list.add(entity);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public List<KhuyenMaiViewModel> selectTopKM() {
+
+        String sql = Select_TopKM;
+
+        List<KhuyenMaiViewModel> list = new ArrayList<>();
+        try {
+            ResultSet rs = JdbcHelper.query(sql);
+            while (rs.next()) {
+                KhuyenMaiViewModel entity = new KhuyenMaiViewModel();
+                entity.setId(rs.getInt(1));
+                entity.setTen(rs.getString(2));
+                entity.setSoluong(rs.getInt(3));
+                entity.setSoluongSD(rs.getInt(4));
+                entity.setKieu(rs.getBoolean(5));
+                entity.setMucGiamGia(Double.valueOf(rs.getDouble(6)));
+                entity.setTrangThai(rs.getInt(7));
+                list.add(entity);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
     public int totalHDSPTheoNgay(Date nbd, Date NKT) {
         int sp = 0;
         try {
-            
+
             ResultSet rs = JdbcHelper.query(select_totalHDSP_TheoNgay, nbd, NKT);
 
             if (rs.next()) {
