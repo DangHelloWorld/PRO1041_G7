@@ -54,7 +54,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 100) {
+            if (x.getChucVu() <= 5) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
@@ -179,9 +179,9 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         model.setMatKhau(txtMatKhau.getText());
         model.setNgayTao(date);
         if (ckbQuanLy.isSelected()) {
-            model.setChucVu(12);
+            model.setChucVu(1);
         } else if (ckbNhanVien.isSelected()) {
-            model.setChucVu(123);
+            model.setChucVu(2);
         }
         return model;
 
