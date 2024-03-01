@@ -179,9 +179,9 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         model.setMatKhau(txtMatKhau.getText());
         model.setNgayTao(date);
         if (ckbQuanLy.isSelected()) {
-            model.setChucVu(12);
+            model.setChucVu(1);
         } else if (ckbNhanVien.isSelected()) {
-            model.setChucVu(123);
+            model.setChucVu(2);
         }
         return model;
 

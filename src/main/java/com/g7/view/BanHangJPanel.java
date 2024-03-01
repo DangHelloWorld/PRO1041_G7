@@ -1255,7 +1255,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         } else {
             String MaHd = "HD" + soHD;
             hd.setMaHD(MaHd);
-            hd.setIdNhanVien("1");
+            hd.setIdNhanVien("2");
             hd.setIdKhachHang(String.valueOf(idKH));
             BHRepo.addHoaDon(hd);
 //            PageLast();

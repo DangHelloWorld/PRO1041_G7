@@ -467,6 +467,10 @@ public class ThongKeJPanel extends javax.swing.JPanel {
         lblLoiNhuan.setText(String.valueOf(fomat.format(loiNhuan)) + " VNĐ");
         lblDoanhThu.setText(String.valueOf(fomat.format(doanhThu)) + " VNĐ");
         lblLuongKhachHang.setText(String.valueOf(kh));
+        
+        loadTBKMTOP();
+        loadTBNVTOP();
+        loadTBSPTOP();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
