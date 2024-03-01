@@ -54,7 +54,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 5) {
+            if (x.getChucVu() == 1) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
