@@ -153,7 +153,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
         txtDiaChi.setText(model.getDiaChi());
         txtEmail.setText(model.getEmail());
         txtMatKhau.setText(model.getMatKhau());
-        if (model.getChucVu() <= 100) {
+        if (model.getChucVu() == 1) {
             ckbQuanLy.setSelected(true);
         } else {
             ckbNhanVien.setSelected(true);
