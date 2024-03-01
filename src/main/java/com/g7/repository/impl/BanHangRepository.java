@@ -144,12 +144,9 @@ public class BanHangRepository {
     String select_TongHD = "SELECT COUNT(DISTINCT id)\n"
             + "FROM HoaDon where TrangThai = 3";
 
-    String select_totalHDSP = "SELECT COUNT(DISTINCT IdCTSanPham)\n"
-            + "FROM     dbo.ChiTietSanPham INNER JOIN\n"
-            + "                  dbo.HoaDon ON dbo.ChiTietSanPham.Id = dbo.HoaDon.Id INNER JOIN\n"
-            + "                  dbo.HoaDonChiTiet ON dbo.ChiTietSanPham.Id = dbo.HoaDonChiTiet.IdCTSanPham INNER JOIN\n"
-            + "                  dbo.SanPham ON dbo.ChiTietSanPham.IdSanPham = dbo.SanPham.Id\n"
-            + "				  where dbo.HoaDon.TrangThai = 3";
+    String select_totalHDSP = "select COUNT(DISTINCT IdCTSanPham) from HoaDonChiTiet inner join\n"
+            + "HoaDon on HoaDon.Id = HoaDonChiTiet.IdHoaDon\n"
+            + "where HoaDon.TrangThai = 3";
 
     String select_TTThongkke_TheoNgay = "select sum(TongTien) from HoaDon where trangthai = 3 and NgayThanhToan BETWEEN ? and ?";
     String select_soKhachHangTK_TheoNgay = "select COUNT(DISTINCT  IdKhachHang) from HoaDon where TrangThai = 3 and NgayThanhToan BETWEEN ? and ?";
@@ -175,13 +172,29 @@ public class BanHangRepository {
             + "GROUP BY km.Id, km.TenNhanVien, km.TrangThai\n"
             + "ORDER BY COUNT(km.Id) DESC";
 
-    String select_TopSPBanChay = "select sp.Id, sp1.TenSanPham, COUNT(sp.Id) as solandcban, SUM(hd.TongTien), sp.TrangThai from HoaDonChiTiet as hdct inner join\n"
-            + "ChiTietSanPham as sp on sp.Id =  hdct.IdCTSanPham inner join\n"
-            + "SanPham as sp1 on sp1.Id = sp.IdSanPham inner join\n"
-            + "HoaDon as hd on hd.Id = hdct.IdHoaDon\n"
-            + "where hd.TrangThai = 3\n"
-            + "  GROUP BY sp.Id, sp1.TenSanPham, sp.TrangThai\n"
-            + "ORDER BY COUNT(sp.Id) DESC;";
+    String select_TopSPBanChay = "	SELECT \n"
+            + "    sp.Id, \n"
+            + "    sp1.TenSanPham, \n"
+            + "    SUM(hdct.SoLuong) AS soluong, \n"
+            + "    SUM(hdct.SoLuong * sp.GiaBan) AS tongtien,\n"
+            + "	sp.TrangThai\n"
+            + "FROM \n"
+            + "    HoaDonChiTiet AS hdct \n"
+            + "INNER JOIN \n"
+            + "    ChiTietSanPham AS sp ON sp.Id = hdct.IdCTSanPham \n"
+            + "INNER JOIN \n"
+            + "    SanPham AS sp1 ON sp1.Id = sp.IdSanPham \n"
+            + "INNER JOIN \n"
+            + "    HoaDon AS hd ON hd.Id = hdct.IdHoaDon \n"
+            + "WHERE \n"
+            + "    hd.TrangThai = 3 \n"
+            + "GROUP BY \n"
+            + "    sp.Id, \n"
+            + "    sp1.TenSanPham, \n"
+            + "    sp.GiaBan,\n"
+            + "	sp.TrangThai\n"
+            + "ORDER BY \n"
+            + "    soluong DESC;";
 
     public List<SanPhamViewModel> selectTopSP() {
 
