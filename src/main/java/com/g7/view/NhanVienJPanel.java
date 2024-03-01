@@ -95,7 +95,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 100) {
+            if (x.getChucVu() == 1) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
@@ -300,7 +300,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 100) {
+            if (x.getChucVu() == 1) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
@@ -340,7 +340,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 100) {
+            if (x.getChucVu() == 1) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
@@ -380,7 +380,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 100) {
+            if (x.getChucVu() == 1) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
@@ -420,7 +420,7 @@ public class NhanVienJPanel extends javax.swing.JPanel {
                 status = "Dừng hoạt động";
             }
             String chucvu = null;
-            if (x.getChucVu() <= 100) {
+            if (x.getChucVu() == 1) {
                 chucvu = "Quản lý";
             } else {
                 chucvu = "Nhân viên";
