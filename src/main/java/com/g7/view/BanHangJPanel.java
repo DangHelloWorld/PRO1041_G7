@@ -51,7 +51,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     DecimalFormat fomat = new DecimalFormat("###,###,###");
 
     private int ht = 1;
-    private int size = 5;
+    private int size = 10;
     private int htHDC = 1;
 
     public BanHangJPanel() {
