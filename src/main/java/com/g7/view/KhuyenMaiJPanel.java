@@ -240,13 +240,14 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFirst)
-                    .addComponent(btnPre)
-                    .addComponent(lblPage)
-                    .addComponent(btnNext)
-                    .addComponent(btnLast)
-                    .addComponent(jButton1))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnFirst)
+                        .addComponent(btnPre)
+                        .addComponent(lblPage)
+                        .addComponent(btnNext)
+                        .addComponent(btnLast)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -776,8 +777,9 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
     }
 
     void update() {
+
         KhuyenMai km = new KhuyenMai();
-        km.setIDKhuyenMai(Integer.valueOf(lblID.getText()));
+        km.setIDKhuyenMai(Integer.parseInt(lblID.getText()));
         km.setTenKhuyenMai(txtTenKM.getText());
         if (cboLoaiGG.getSelectedItem() == "VND") {
             km.setKieuGiamGia(true);
@@ -785,17 +787,15 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
             km.setKieuGiamGia(false);
         }
         km.setMoTa(txtMoTa.getText());
-        km.setMucGiamGia(Double.valueOf(txtMucGG.getText()));
+        km.setMucGiamGia(Double.parseDouble(txtMucGG.getText()));
         km.setNgayBatDau(txtNgayBatDau.getDate());
         km.setNgayKetThuc(txtNgayKetThuc.getDate());
-        km.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
+        km.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
+
         String tenkm = txtTenKM.getText();
-        int sl = kmr.checkTrungTen(tenkm);
-        int sl2 = sl + 1;
         int index = tblKhuyenMai.getSelectedRow();
-        if (!tblKhuyenMai.getValueAt(index, 2).toString().equals(txtTenKM.getText())) {
-            if (sl == 1) {
-            if (sl2 == 2) {
+        if (!tblKhuyenMai.getValueAt(index, 1).toString().equals(txtTenKM.getText())) {
+            if (kmr.checkTrungTen(tenkm) !=0) {
                 JOptionPane.showMessageDialog(this, "Tên khuyến mãi đã tồn tại, vui lòng nhập lại!");
 
             } else {
@@ -812,24 +812,16 @@ public class KhuyenMaiJPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "sửa không thành công");
 
                 }
-
             }
-        }
-        
-//        } else {
-//            try {
-//                int chon = JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi", "Bạn có muốn sửa khuyến mãi này không?", JOptionPane.YES_NO_OPTION);
-//                if (chon == JOptionPane.YES_OPTION) {
-//                    kmr.update(km);
-//                    findWithPaginationKH(0, size);
-//                    this.clearForm();
-//                    JOptionPane.showMessageDialog(this, "sửa thành công");
-//                }
-//
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(this, "sửa không thành công");
-//
-//            }
+
+        } else {
+            int chon = JOptionPane.showConfirmDialog(this, "Sửa khuyến mãi", "Bạn có muốn sửa khuyến mãi này không?", JOptionPane.YES_NO_OPTION);
+            if (chon == JOptionPane.YES_OPTION) {
+                kmr.update(km);
+                findWithPaginationKH(0, size);
+                this.clearForm();
+                JOptionPane.showMessageDialog(this, "sửa thành công");
+            }
         }
 
     }

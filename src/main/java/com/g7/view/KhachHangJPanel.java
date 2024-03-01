@@ -21,7 +21,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     private DefaultTableModel defaultTableModelKH = new DefaultTableModel();
 
     private int ht = 1;
-    private int size = 100;
+    private int size = 35;
     int index = 0;
 
     public KhachHangJPanel() {
