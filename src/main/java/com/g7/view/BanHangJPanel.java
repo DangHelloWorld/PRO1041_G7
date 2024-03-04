@@ -51,7 +51,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     DecimalFormat fomat = new DecimalFormat("###,###,###");
 
     private int ht = 1;
-    private int size = 10;
+    private int size = 100;
     private int htHDC = 1;
 
     public BanHangJPanel() {
@@ -1255,7 +1255,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         } else {
             String MaHd = "HD" + soHD;
             hd.setMaHD(MaHd);
-            hd.setIdNhanVien("2");
+            hd.setIdNhanVien("1");
             hd.setIdKhachHang(String.valueOf(idKH));
             BHRepo.addHoaDon(hd);
 //            PageLast();

@@ -48,7 +48,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         dtm = (DefaultTableModel) tblhoaDon.getModel();
         for (HoaDonViewModel x : list) {
             dtm.addRow(new Object[]{
-                x.getIdhd(), x.getMahd(), x.getNgayTao(), x.getNgayThanhToan(), x.getTongTien(), x.getSoTienDuocGiam(), x.getTenNV(), x.getTenKH(), x.trangThai(x.getTrangThai())
+                x.getIdhd(), x.getMahd(), x.getNgayTao(), x.getNgayThanhToan(), x.getTongTien(), x.getTenNV(), x.getTenKH(), x.trangThai(x.getTrangThai())
             });
         }
     }
@@ -132,7 +132,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID ", "Mã Hoá Đơn", "Ngày Tạo", "Ngày Thanh Toán", "Tổng Tiền", "Số Tiền Giảm", "Tên nhân viên", "Tên khách hàng", "Trạng Thái"
+                "ID ", "Mã Hoá Đơn", "Ngày Tạo", "Ngày Thanh Toán", "Tổng Tiền", "Tên nhân viên", "Tên khách hàng", "Trạng Thái"
             }
         ));
         tblhoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
